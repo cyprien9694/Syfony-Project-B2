@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Mon Application Symfony{% endblock %}</title>
+</head>
+<body>
+
+    <!-- Entête avec menu -->
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{{ path('app_home') }}">Accueil</a></li>
+                <li><a href="{{ path('app_about') }}">À propos</a></li>
+                <li><a href="{{ path('app_hello', {'name': 'Visiteur'}) }}">Hello</a></li>
+                <li><a href="{{ path('app_random') }}">Citation du jour</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Contenu spécifique à chaque page -->
+    <main>
+        {% block body %}{% endblock %}
+    </main>
+
+</body>
+</html>
