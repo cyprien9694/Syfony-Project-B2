@@ -4,8 +4,6 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
@@ -30,51 +28,19 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/star-of-the-day', name: 'app_random')]
-    public function random(): Response
+    #[Route('/star-of-the-day', name: 'app_star_day')]
+    public function starOfTheDay(): Response
     {
         $stars = [
-            "Sirius",
-            "Canopus",
-            "Arcturus",
-            "Vega",
-            "Capella",
-            "Rigel",
-            "Procyon",
+            'Sirius',
+            'Canopus',
+            'Vega',
+            'Arcturus',
+            'Rigel',
         ];
 
         return $this->render('home/star_of_the_day.html.twig', [
-            'citation' => $stars[array_rand($stars)],
-        ]);
-    }
-
-    #[Route('/api/random', name: 'app_api_random')]
-    public function apiRandom(): JsonResponse
-    {
-        $stars = [
-            "Sirius",
-            "Canopus",
-            "Arcturus",
-            "Vega",
-            "Capella",
-            "Rigel",
-            "Procyon",
-        ];
-
-        return new JsonResponse([
             'star' => $stars[array_rand($stars)],
         ]);
-    }
-
-    #[Route('/redirect', name: 'app_redirect')]
-    public function redirectToRandom(): Response
-    {
-        return $this->redirectToRoute('app_random');
-    }
-
-    #[Route('/error', name: 'app_error')]
-    public function error(): void
-    {
-        throw new NotFoundHttpException('Page non trouvée 😢');
     }
 }
