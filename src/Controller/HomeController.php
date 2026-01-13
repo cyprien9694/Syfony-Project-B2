@@ -17,14 +17,14 @@ class HomeController extends AbstractController
     #[Route('/about', name: 'app_about')]
     public function about(): Response
     {
-        return $this->render('home/about.twig.html');
+        return $this->render('home/about.html.twig');
     }
 
     #[Route('/hello/{name}', name: 'app_hello')]
     public function hello(string $name): Response
     {
         $name = ucfirst($name);
-        return $this->render('home/hello.twig.html', ['name' => $name]);
+        return $this->render('home/hello.html.twig', ['name' => $name]);
     }
 
     #[Route('/random', name: 'app_random')]
@@ -42,7 +42,7 @@ class HomeController extends AbstractController
         $citationDuJour = $citations[array_rand($citations)];
 
         // Envoyer au template Twig
-        return $this->render('home/random.twig.html', [
+        return $this->render('home/random.html.twig', [
             'citation' => $citationDuJour
         ]);
     }
