@@ -1,12 +1,8 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>À propos</title>
-</head>
-<body>
-    <h1>À propos de l’application</h1>
+{% extends 'base.html.twig' %}
 
-    <p>Bienvenue sur notre application de TestWord 🎉</p>
-</body>
-</html>
+{% block title %}À propos - Sky of Tonight{% endblock %}
+
+{% block body %}
+    <h1>À propos de Sky of Tonight</h1>
+    <p>Bienvenue sur notre application qui vous permet d’explorer les étoiles et le ciel nocturne 🌌</p>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Étoile du jour{% endblock %}
+
+{% block body %}
+    <h1>Étoile du jour 🌟</h1>
+
+    <p>Nom : {{ citation|upper }}</p>
+    <p>Date d’observation : {{ "now"|date("d/m/Y") }}</p>
+
+    <div class="alert alert-success">
+        Admirez cette étoile dans le ciel ce soir !
+    </div>
+    <div class="alert alert-warning">
+        Les étoiles changent chaque jour, restez curieux !
+    </div>
+{% endblock %}

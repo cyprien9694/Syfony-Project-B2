@@ -2,27 +2,40 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}Mon Application Symfony{% endblock %}</title>
+    <title>{% block title %}Sky of Tonight{% endblock %}</title>
+
+    {% block stylesheets %}
+        <link rel="stylesheet" href="/css/style.css">
+    {% endblock %}
 </head>
 <body>
 
-    <!-- Entête avec menu -->
-    <header>
+<header>
+    {% block menu %}
         <nav>
             <ul>
                 <li><a href="{{ path('app_home') }}">Accueil</a></li>
                 <li><a href="{{ path('app_about') }}">À propos</a></li>
-                <li><a href="{{ path('app_hello', {'name': 'Visiteur'}) }}">Hello</a></li>
-                <li><a href="{{ path('app_random') }}">Citation du jour</a></li>
+                <li><a href="{{ path('app_hello', {'name': 'Explorateur'}) }}">Hello</a></li>
+                <li><a href="{{ path('app_random') }}">Étoile du jour</a></li>
             </ul>
         </nav>
         <hr>
-    </header>
+    {% endblock %}
+</header>
 
-    <!-- Contenu spécifique à chaque page -->
-    <main>
-        {% block body %}{% endblock %}
-    </main>
+<main>
+    {% block body %}{% endblock %}
+</main>
+
+<footer>
+    {% block footer %}
+        <hr>
+        <p>&copy; {{ "now"|date("Y") }} Sky of Tonight. Tous droits réservés 🌌</p>
+    {% endblock %}
+</footer>
+
+{% block scripts %}{% endblock %}
 
 </body>
 </html>
