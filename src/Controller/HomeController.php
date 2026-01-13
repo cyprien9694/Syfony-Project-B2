@@ -6,14 +6,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
     #[Route('/', name: 'app_home')]
     public function index(): Response
     {
-        return new Response('<h1>Bienvenue sur mon application Symfony</h1>');
+        return $this->render('home/index.html.twig');
     }
 
     #[Route('/about', name: 'app_about')]
@@ -26,39 +26,43 @@ class HomeController extends AbstractController
     public function hello(string $name): Response
     {
         return $this->render('home/hello.html.twig', [
-            'name' => ucfirst($name)
+            'name' => ucfirst($name),
         ]);
     }
 
-    #[Route('/random', name: 'app_random')]
+    #[Route('/star-of-the-day', name: 'app_random')]
     public function random(): Response
     {
-        $citations = [
-            "La vie est un mystère qu'il faut vivre, et non un problème à résoudre.",
-            "Le succès n’est pas la clé du bonheur. Le bonheur est la clé du succès.",
-            "Il n’y a qu’une façon d’échouer, c’est d’abandonner avant d’avoir réussi.",
-            "La plus grande gloire n’est pas de ne jamais tomber, mais de se relever à chaque chute."
+        $stars = [
+            "Sirius",
+            "Canopus",
+            "Arcturus",
+            "Vega",
+            "Capella",
+            "Rigel",
+            "Procyon",
         ];
 
-        return $this->render('home/random.html.twig', [
-            'citation' => $citations[array_rand($citations)]
+        return $this->render('home/star_of_the_day.html.twig', [
+            'citation' => $stars[array_rand($stars)],
         ]);
     }
-
-    // ===== BONUS =====
 
     #[Route('/api/random', name: 'app_api_random')]
     public function apiRandom(): JsonResponse
     {
-        $citations = [
-            "La vie est un mystère qu'il faut vivre, et non un problème à résoudre.",
-            "Le succès n’est pas la clé du bonheur. Le bonheur est la clé du succès.",
-            "Il n’y a qu’une façon d’échouer, c’est d’abandonner avant d’avoir réussi.",
-            "La plus grande gloire n’est pas de ne jamais tomber, mais de se relever à chaque chute."
+        $stars = [
+            "Sirius",
+            "Canopus",
+            "Arcturus",
+            "Vega",
+            "Capella",
+            "Rigel",
+            "Procyon",
         ];
 
         return new JsonResponse([
-            'citation' => $citations[array_rand($citations)]
+            'star' => $stars[array_rand($stars)],
         ]);
     }
 
