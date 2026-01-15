@@ -23,7 +23,7 @@ class StarType extends AbstractType
             ->add('type', TextType::class)
             ->add('image', FileType::class, [
                 'label' => 'Image de l’étoile',
-                'mapped' => false,
+                'mapped' => false, // Assurez-vous de gérer le téléchargement du fichier dans le contrôleur
                 'required' => false,
                 'constraints' => [
                     new File([
