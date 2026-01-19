@@ -6,12 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/constellations')]
-class ConstellationController extends AbstractController
+final class ConstellationController extends AbstractController
 {
-    #[Route('/', name: 'constellation_index')]
+    #[Route('/constellation', name: 'app_constellation')]
     public function index(): Response
     {
-        return $this->render('constellation/index.html.twig');
+        return $this->render('constellation/index.html.twig', [
+            'controller_name' => 'ConstellationController',
+        ]);
     }
 }

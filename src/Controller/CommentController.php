@@ -6,11 +6,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-class CommentController extends AbstractController
+final class CommentController extends AbstractController
 {
-    #[Route('/comments', name: 'comments_index')]
+    #[Route('/comment', name: 'app_comment')]
     public function index(): Response
     {
-        return $this->render('comments/index.html.twig');
+        return $this->render('comment/index.html.twig', [
+            'controller_name' => 'CommentController',
+        ]);
     }
 }
