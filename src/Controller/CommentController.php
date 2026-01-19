@@ -6,11 +6,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-class StarController extends AbstractController
+class CommentController extends AbstractController
 {
-    #[Route('/stars', name: 'star_index')]
+    #[Route('/comments', name: 'comments_index')]
     public function index(): Response
     {
-        return $this->render('star/index.html.twig');
+        return $this->render('comments/index.html.twig');
     }
 }
