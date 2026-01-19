@@ -4,7 +4,6 @@ namespace App\Form;
 
 use App\Entity\Star;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -12,21 +11,34 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class StarType extends AbstractType
 {
-    public function buildForm(FormBuilderInterface $builder, array $options)
+    public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', TextType::class)
-            ->add('description', TextareaType::class)
-            ->add('image', TextType::class, [
-                'required' => false
+            ->add('name', TextType::class, [
+                'label' => 'Nom de l\'étoile',
+                'attr' => [
+                    'placeholder' => 'Ex : Sirius'
+                ]
             ])
-            ->add('createdAt', DateTimeType::class, [
-                'widget' => 'single_text'
+            ->add('description', TextareaType::class, [
+                'label' => 'Description',
+                'attr' => [
+                    'placeholder' => 'Une description de l\'étoile...'
+                ]
+            ])
+            ->add('image', TextType::class, [
+                'label' => 'URL de l\'image',
+                'required' => false,
+                'attr' => [
+                    'placeholder' => 'https://...'
+                ]
             ])
         ;
+        // NOTE : createdAt n'est plus dans le formulaire pour éviter les erreurs
+        // Il sera initialisé automatiquement dans le contrôleur
     }
 
-    public function configureOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Star::class,
