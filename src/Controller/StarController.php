@@ -44,4 +44,33 @@ final class StarController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+    #[Route('/star/edit/{id}', name: 'star_edit')]
+    public function edit(Star $star, Request $request, EntityManagerInterface $em): Response
+    {
+        $form = $this->createForm(StarType::class, $star);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush(); // seul flush() suffit, Doctrine suit déjà l'objet
+            $this->addFlash('success', 'Étoile mise à jour ! 🌟');
+
+            return $this->redirectToRoute('star_list');
+        }
+
+        return $this->render('star/edit.html.twig', [
+            'form' => $form->createView(),
+            'star' => $star,
+        ]);
+    }
+    #[Route('/star/delete/{id}', name: 'star_delete')]
+    public function delete(Star $star, EntityManagerInterface $em): Response
+    {
+        if ($star) {
+            $em->remove($star);
+            $em->flush();
+            $this->addFlash('success', 'Étoile supprimée ! ❌');
+        }
+
+        return $this->redirectToRoute('star_list');
+    }
 }
