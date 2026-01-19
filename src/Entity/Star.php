@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\StarRepository;
 use Doctrine\ORM\Mapping as ORM;
+use App\Entity\Category;
 
 #[ORM\Entity(repositoryClass: StarRepository::class)]
 class Star
@@ -24,6 +25,10 @@ class Star
 
     #[ORM\Column]
     private ?\DateTimeInterface $createdAt = null;
+
+    #[ORM\ManyToOne(inversedBy: 'stars')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Category $category = null;
 
     // -------- GETTERS & SETTERS --------
 
@@ -73,6 +78,17 @@ class Star
     public function setCreatedAt(\DateTimeInterface $createdAt): static
     {
         $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
         return $this;
     }
 }
