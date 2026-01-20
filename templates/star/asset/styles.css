@@ -1,0 +1,81 @@
+/* styles.css */
+
+/* Body général */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f5f5;
+    color: #333;
+    margin: 20px;
+}
+
+/* Titre */
+h1 {
+    text-align: center;
+    color: #ff9800; /* Couleur étoile */
+    margin-bottom: 30px;
+    font-size: 2.5rem;
+}
+
+/* Bouton Ajouter une étoile */
+.btn-primary {
+    background-color: #ff9800;
+    border: none;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #e68900;
+    transform: translateY(-2px);
+}
+
+/* Tableau */
+.table {
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.table th {
+    background-color: #ffcc80;
+    color: #333;
+    text-align: center;
+}
+
+.table td {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table tbody tr:hover {
+    background-color: #fff3e0;
+}
+
+/* Image dans le tableau */
+.table img {
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+/* Message "Aucune étoile trouvée" */
+.table td[colspan="5"] {
+    text-align: center;
+    font-style: italic;
+    color: #999;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2rem;
+    }
+
+    .table {
+        font-size: 0.9rem;
+    }
+
+    .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+}
