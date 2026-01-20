@@ -70,4 +70,11 @@ class HomeController extends AbstractController
             'star' => $stars[array_rand($stars)],
         ]);
     }
+
+    // ✅ ROUTE AJOUTÉE POUR CORRIGER L’ERREUR star_index / app_star
+    #[Route('/stars', name: 'app_star')]
+    public function stars(): Response
+    {
+        return $this->render('star/index.html.twig');
+    }
 }
