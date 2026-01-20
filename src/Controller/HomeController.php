@@ -6,8 +6,6 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
-
-// Types de champs du formulaire
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -24,7 +22,6 @@ class HomeController extends AbstractController
     #[Route('/about', name: 'app_about')]
     public function about(Request $request): Response
     {
-        // Création du formulaire
         $form = $this->createFormBuilder()
             ->add('name', TextType::class, [
                 'label' => 'Nom',
@@ -43,16 +40,11 @@ class HomeController extends AbstractController
             ])
             ->getForm();
 
-        // Traiter la soumission du formulaire
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $data = $form->getData();
+            $this->addFlash('success', 'Message envoyé avec succès !');
 
-            // Ici tu peux faire quelque chose avec les données, comme envoyer un email
-            $this->addFlash('success', 'Message envoyé !');
-
-            // Rediriger pour éviter le double envoi
             return $this->redirectToRoute('app_about');
         }
 
@@ -72,13 +64,7 @@ class HomeController extends AbstractController
     #[Route('/star-of-the-day', name: 'app_star_day')]
     public function starOfTheDay(): Response
     {
-        $stars = [
-            'Sirius',
-            'Canopus',
-            'Vega',
-            'Arcturus',
-            'Rigel',
-        ];
+        $stars = ['Sirius', 'Canopus', 'Vega', 'Arcturus', 'Rigel'];
 
         return $this->render('home/star_of_the_day.html.twig', [
             'star' => $stars[array_rand($stars)],
