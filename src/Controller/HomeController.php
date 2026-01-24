@@ -71,7 +71,6 @@ class HomeController extends AbstractController
         ]);
     }
 
-    // ✅ ROUTE AJOUTÉE POUR CORRIGER L’ERREUR star_index / app_star
     #[Route('/stars', name: 'app_star')]
     public function stars(): Response
     {
