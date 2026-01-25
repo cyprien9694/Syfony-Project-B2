@@ -23,7 +23,7 @@ class Star
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
-    #[ORM\Column]
+    #[ORM\Column(type: 'datetime')]
     private ?\DateTimeInterface $createdAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'stars')]
@@ -88,5 +88,9 @@ class Star
     {
         $this->category = $category;
         return $this;
+    }
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
     }
 }
