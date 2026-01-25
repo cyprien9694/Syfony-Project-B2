@@ -16,7 +16,6 @@ final class StarController extends AbstractController
     public function index(EntityManagerInterface $em): Response
     {
         $stars = $em->getRepository(Star::class)->findAll();
-        dd('Controller is called!');
         return $this->render('star/index.html.twig', [
             'stars' => $stars,
         ]);
