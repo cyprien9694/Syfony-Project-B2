@@ -8,38 +8,66 @@
 {% endblock %}
 
 {% block body %}
-<h1>Liste des étoiles 🌟</h1>
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="{{ path('app_home') }}">
+            ⭐ Liste des étoiles
+        </a>
 
-<a href="{{ path('star_new') }}" class="btn btn-primary">Ajouter une étoile</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item"><a class="nav-link" href="{{ path('app_home') }}">Accueil</a></li>
+                <li class="nav-item"><a class="nav-link active" href="{{ path('app_star') }}">⭐ Étoiles</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ path('app_star_day') }}">🌟 Étoile du jour</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ path('app_about') }}">ℹ️ À propos</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ path('app_comment') }}">💬 Commentaires</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
 
-<table class="table mt-3">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nom</th>
-            <th>Description</th>
-            <th>Image</th>
-            <th>Créé le</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for star in stars %}
+<!-- CONTENU -->
+<main class="container content">
+
+    <!-- BOUTON -->
+    <div class="mb-3">
+        <a href="{{ path('star_new') }}" class="btn btn-primary">
+            ➕ Ajouter une étoile
+        </a>
+    </div>
+
+    <!-- TABLE -->
+    <table class="table">
+        <thead>
             <tr>
-                <td>{{ star.id }}</td>
-                <td>{{ star.name }}</td>
-                <td>{{ star.description }}</td>
-                <td>
-                    {% if star.image %}
-                        <img src="{{ star.image }}" alt="{{ star.name }}" width="50">
-                    {% endif %}
-                </td>
-                <td>{{ star.createdAt|date('d/m/Y H:i') }}</td>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Description</th>
+                <th>Image</th>
+                <th>Créé le</th>
             </tr>
-        {% else %}
-            <tr>
-                <td colspan="5">Aucune étoile trouvée.</td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            {% for star in stars %}
+                <tr>
+                    <td>{{ star.id }}</td>
+                    <td>{{ star.name }}</td>
+                    <td>{{ star.description }}</td>
+                    <td>
+                        {% if star.image %}
+                            <img src="{{ star.image }}" alt="{{ star.name }}" width="50">
+                        {% endif %}
+                    </td>
+                    <td>{{ star.createdAt|date('d/m/Y H:i') }}</td>
+                </tr>
+            {% else %}
+                <tr>
+                    <td colspan="5">Aucune étoile trouvée.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+</main>
 {% endblock %}
