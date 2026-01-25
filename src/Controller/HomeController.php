@@ -71,9 +71,4 @@ class HomeController extends AbstractController
         ]);
     }
 
-    #[Route('/stars', name: 'app_star')]
-    public function stars(): Response
-    {
-        return $this->render('star/index.html.twig');
-    }
 }

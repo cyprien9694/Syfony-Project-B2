@@ -12,11 +12,11 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class StarController extends AbstractController
 {
-    #[Route('/star', name: 'star_list')]
+    #[Route('/star', name: 'app_star')]
     public function index(EntityManagerInterface $em): Response
     {
         $stars = $em->getRepository(Star::class)->findAll();
-
+        dd('Controller is called!');
         return $this->render('star/index.html.twig', [
             'stars' => $stars,
         ]);

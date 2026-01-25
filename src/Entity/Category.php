@@ -27,7 +27,6 @@ class Category
         $this->stars = new ArrayCollection();
     }
 
-    // -------- GETTERS & SETTERS --------
 
     public function getId(): ?int
     {
