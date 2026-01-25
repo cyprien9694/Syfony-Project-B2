@@ -30,8 +30,6 @@ class Star
     #[ORM\JoinColumn(nullable: false)]
     private ?Category $category = null;
 
-    // -------- GETTERS & SETTERS --------
-
     public function getId(): ?int
     {
         return $this->id;
