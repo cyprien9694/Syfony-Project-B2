@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}Symfony Commentaire{% endblock %}</title>
+        <style>
+            body { font-family: Arial, sans-serif; margin:0; padding:0; background:#f5f5f5; }
+            header { background:#333; color:white; padding:10px; }
+            header a { color:white; margin-right:15px; text-decoration:none; }
+            main { padding:20px; max-width:900px; margin: auto; background:white; }
+            .flash-success { background:#d4edda; padding:10px; border-radius:5px; margin-bottom:15px; color:#155724; }
+            .flash-error { background:#f8d7da; padding:10px; border-radius:5px; margin-bottom:15px; color:#721c24; }
+            .comment { border:1px solid #ddd; padding:10px; margin-bottom:10px; border-radius:8px; background:#f9f9f9; }
+            .comment-author { font-weight:bold; margin-bottom:5px; }
+            .btn { text-decoration:none; padding:5px 10px; background:#007bff; color:white; border-radius:4px; }
+            .btn-danger { background:#dc3545; }
+        </style>
+        {% block styles %}{% endblock %}
+    </head>
+    <body>
+        <header>
+            <a href="{{ path('app_comment') }}">Commentaires</a>
+
+            {% if app.user is defined and app.user %}
+                <span>Bonjour, {{ app.user.email }}</span>
+                <a href="{{ path('app_logout') }}">Déconnexion</a>
+            {% else %}
+                <a href="{{ path('app_login') }}">Connexion</a>
+            {% endif %}
+        </header>
+
+        <main>
+            {% for message in app.flashes('success') %}
+                <div class="flash-success">{{ message }}</div>
+            {% endfor %}
+            {% for message in app.flashes('error') %}
+                <div class="flash-error">{{ message }}</div>
+            {% endfor %}
+
+            {% block body %}{% endblock %}
+        </main>
+    </body>
+</html>

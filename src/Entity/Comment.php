@@ -27,6 +27,7 @@ class Comment
         $this->createdAt = new \DateTimeImmutable();
     }
 
+    // --- Getters et Setters ---
     public function getId(): ?int
     {
         return $this->id;
