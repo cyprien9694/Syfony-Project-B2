@@ -64,11 +64,11 @@
 		<div class="grid grid-3">
 			{% for star in stars %}
 				<div
-					class="star-card d-flex flex-column justify-between">
+					class="star-card d-flex flex-column justify-between col-6 col-md-4 col-lg-3 col-xl-2">
 
 					<!-- Image de la card -->
-					<div class="card-center">
-						<img src="{{ star.image }}" alt="{{ star.name }}">
+					<div class="image-center">
+						<img src="{{ star.image }}" alt="{{ star.name }}" class="image">
 					</div>
 
 					<!-- Corps de la card -->
@@ -77,7 +77,7 @@
 
 						<!-- Boutons d'action sur la card -->
 						<div class="d-flex justify-center gap-2 mt-2">
-							<a href="{{ path('star_edit', {'id': star.id}) }}" class="btn btn-filter">
+							<a href="{{ path('star_edit', {'id': star.id}) }}" class="btn btn-filter ">
 								<i class="fa-solid fa-pen"></i>
 								Modifier
 							</a>

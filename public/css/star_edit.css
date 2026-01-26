@@ -1,0 +1,36 @@
+/* Carte édition étoile */
+.star-edit-card {
+    border: none;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #ffffff, #f8f9fa);
+}
+
+/* Titre */
+.star-edit-card h1 {
+    font-weight: 700;
+}
+
+/* Champs formulaire Symfony */
+.star-edit-card input,
+.star-edit-card select,
+.star-edit-card textarea {
+    border-radius: 8px;
+}
+
+/* Focus Bootstrap amélioré */
+.star-edit-card input:focus,
+.star-edit-card select:focus,
+.star-edit-card textarea:focus {
+    box-shadow: 0 0 0 0.2rem rgba(255, 193, 7, 0.35);
+    border-color: #ffc107;
+}
+
+/* Boutons */
+.star-edit-card .btn-success {
+    font-weight: 600;
+}
+
+.star-edit-card .btn-outline-secondary:hover {
+    background-color: #6c757d;
+    color: #ffffff;
+}
