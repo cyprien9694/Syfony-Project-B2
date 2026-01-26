@@ -49,11 +49,10 @@
             <div class="star-card d-flex flex-column justify-between">
 
                 <!-- Image de la card -->
-                <div class="card">
+                <div class="card-center">
                     <img
                         src="{{ star.image }}"
                         alt="{{ star.name }}"
-                        class="img-responsive"
                     >
                 </div>
 
@@ -62,7 +61,7 @@
                     <h5 class="card-title">{{ star.name }}</h5>
 
                     <!-- Boutons d'action sur la card -->
-                    <div class="snack">
+                    <div class="d-flex justify-center gap-2 mt-2">
                         <a href="{{ path('star_edit', {'id': star.id}) }}" class="btn btn-filter">
                             <i class="fa-solid fa-pen"></i> Modifier
                         </a>
