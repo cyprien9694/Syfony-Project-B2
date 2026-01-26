@@ -23,8 +23,8 @@ class Star
     #[ORM\Column(length: 255, nullable: true)]
     private ?string $image = null;
 
-    #[ORM\Column(type: 'datetime')]
-    private ?\DateTimeInterface $createdAt = null;
+    #[ORM\Column(type: 'datetime_immutable')]
+    private ?\DateTimeImmutable $createdAt = null;
 
     #[ORM\ManyToOne(targetEntity: Category::class, inversedBy: 'stars')]
     #[ORM\JoinColumn(nullable: false)]
@@ -32,22 +32,67 @@ class Star
 
     public function __construct()
     {
+        // On initialise automatiquement la date de création à la création de l'objet
         $this->createdAt = new \DateTimeImmutable();
     }
 
-    public function getId(): ?int { return $this->id; }
-    public function getName(): ?string { return $this->name; }
-    public function setName(string $name): static { $this->name = $name; return $this; }
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
 
-    public function getDescription(): ?string { return $this->description; }
-    public function setDescription(string $description): static { $this->description = $description; return $this; }
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
 
-    public function getImage(): ?string { return $this->image; }
-    public function setImage(?string $image): static { $this->image = $image; return $this; }
+    public function setName(string $name): static
+    {
+        $this->name = $name;
+        return $this;
+    }
 
-    public function getCreatedAt(): ?\DateTimeInterface { return $this->createdAt; }
-    public function setCreatedAt(\DateTimeInterface $createdAt): static { $this->createdAt = $createdAt; return $this; }
+    public function getDescription(): ?string
+    {
+        return $this->description;
+    }
 
-    public function getCategory(): ?Category { return $this->category; }
-    public function setCategory(?Category $category): static { $this->category = $category; return $this; }
+    public function setDescription(string $description): static
+    {
+        $this->description = $description;
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): static
+    {
+        $this->image = $image;
+        return $this;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->createdAt;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $createdAt): static
+    {
+        $this->createdAt = $createdAt;
+        return $this;
+    }
+
+    public function getCategory(): ?Category
+    {
+        return $this->category;
+    }
+
+    public function setCategory(?Category $category): static
+    {
+        $this->category = $category;
+        return $this;
+    }
 }
