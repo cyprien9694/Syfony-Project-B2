@@ -36,7 +36,7 @@ final class StarController extends AbstractController
 
             $this->addFlash('success', 'Étoile ajoutée ! 🌟');
 
-            return $this->redirectToRoute('star_list');
+            return $this->redirectToRoute('app_star');
         }
 
         return $this->render('star/new.html.twig', [
@@ -53,7 +53,7 @@ final class StarController extends AbstractController
             $em->flush(); // seul flush() suffit, Doctrine suit déjà l'objet
             $this->addFlash('success', 'Étoile mise à jour ! 🌟');
 
-            return $this->redirectToRoute('star_list');
+            return $this->redirectToRoute('app_star');
         }
 
         return $this->render('star/edit.html.twig', [
@@ -70,6 +70,6 @@ final class StarController extends AbstractController
             $this->addFlash('success', 'Étoile supprimée ! ❌');
         }
 
-        return $this->redirectToRoute('star_list');
+        return $this->redirectToRoute('app_star');
     }
 }
