@@ -44,71 +44,114 @@ body {
 ========================= */
 .grid {
     display: grid;
-    gap: 30px;
 }
 
 .grid-3 {
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
 }
 
 /* ===========================
    CARDS GLOBALES
 =========================== */
-.card, .star-card {
-  border-radius: 16px;
-  overflow: hidden;
-  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  background-color: #fff;
+.card,
+.star-card {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.12);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #fff;
 }
 
-.card:hover, .star-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.18);
+.card:hover,
+.star-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.18);
 }
 
 /* ===========================
    IMAGE
 =========================== */
-.card img, .star-card img {
-  width: 100%;
-  height: 220px;
-  object-fit: cover;
-  transition: transform 0.4s ease;
+.card img,
+.star-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    transition: transform 0.4s ease;
 }
 
 .star-card:hover img {
-  transform: scale(1.08);
+    transform: scale(1.08);
 }
 
 /* ===========================
-   CARD BODY
+   CARDS
 =========================== */
-.card-body {
-  padding: 16px;
+.card {
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
 }
 
-.card-title {
-  font-size: 1.2rem;
-  font-weight: 600;
-  margin-bottom: 8px;
-  text-align: center;
+.card img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+}
+
+.card-body {
+    padding: 16px;
+}
+
+/* Cards verticales (Booki Populaires) */
+.card-vertical {
+    width: 220px;
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-vertical img {
+    object-fit: cover;
+    height: 380px;
+}
+
+.card-center img {
+    padding: 16px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.d-flex {
+    display: flex;
+}
+
+.flex-column {
+    flex-direction: column;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.justify-around {
+    justify-content: space-around;
 }
 
 /* ===========================
    STARS
 =========================== */
 .stars i {
-  font-size: 1.1rem;
-  margin: 0 2px;
+    font-size: 1.1rem;
+    margin: 0 2px;
 }
 
 .txt-gold {
-  color: #ff9800;
+    color: #ff9800;
 }
 
 .txt-grey {
-  color: #ccc;
+    color: #ccc;
 }
 
 /* ===========================
@@ -116,93 +159,76 @@ body {
 =========================== */
 /* Card verticale pour images grandes */
 .card-vertical {
-  width: 220px;
+    width: 220px;
 }
 
 .card-vertical img {
-  height: 380px;
+    height: 380px;
 }
 
 /* Card avec image centrée (padding) */
 .card-center img {
-  padding: 16px;
-  height: 200px;
-  object-fit: cover;
+    padding: 16px;
+    height: 200px;
+    object-fit: cover;
 }
 
 /* ===========================
    FLEX UTILITIES
 =========================== */
 .d-flex {
-  display: flex;
+    display: flex;
 }
 
 .flex-column {
-  flex-direction: column;
+    flex-direction: column;
 }
 
 .justify-between {
-  justify-content: space-between;
+    justify-content: space-between;
 }
 
 .justify-around {
-  justify-content: space-around;
+    justify-content: space-around;
 }
 
 /* ===========================
    GRID LAYOUT
 =========================== */
 .grid {
-  display: grid;
-  gap: 25px;
+    display: grid;
+    gap: 25px;
 }
 
 .grid-3 {
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
 }
 
 /* ===========================
    RESPONSIVE
 =========================== */
 @media (max-width: 768px) {
-  .grid-3 {
-    grid-template-columns: 1fr;
-  }
-  .card-vertical {
-    width: 100%;
-  }
-  .card-title {
-    font-size: 1rem;
-  }
+    .grid-3 {
+        grid-template-columns: 1fr;
+    }
+
+    .card-vertical {
+        width: 100%;
+    }
+
+    .card-title {
+        font-size: 1rem;
+    }
 }
 
-
-/* =========================
-   IMAGE
-========================= */
-
-.card-img {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin: auto;
-}
-
-.star-card:hover .card-img {
-    transform: scale(1.08);
-}
-
-/* =========================
-   CARD BODY
-========================= */
-.card-body {
-    padding: 18px;
-}
-
-.card-title {
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin-bottom: 10px;
+/* ===========================
+   IMAGES
+=========================== */
+.img-responsive {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: auto;
 }
 
 /* =========================

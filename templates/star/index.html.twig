@@ -14,7 +14,7 @@
 {% block body %}
 <!-- NAVBAR -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid">
+    <div class="container-fluid ">
         <a class="navbar-brand fw-bold" href="{{ path('app_home') }}">
             ⭐ Liste des étoiles
         </a>
@@ -48,7 +48,7 @@
         {% for star in stars %}
             <div class="card star-card">
 
-                <div class="card-img-wrapper">
+                <div class="Card image">
                     <img
                         src="{{ star.image }}"
                         alt="{{ star.name }}"
