@@ -5,7 +5,7 @@
 {% block body %}
 <h1>Commentaires</h1>
 
-{% if app.user is defined and app.user %}
+{% if app_user %}
     <a class="btn" href="{{ path('comment_new') }}">Ajouter un commentaire</a>
 {% endif %}
 
@@ -15,9 +15,10 @@
             <div class="comment-author">{{ comment.author }} - {{ comment.createdAt|date('d/m/Y H:i') }}</div>
             <div class="comment-content">{{ comment.content }}</div>
 
-            {% if app.user is defined and app.user %}
+            {% if app_user %}
                 <a class="btn" href="{{ path('comment_edit', {'id': comment.id}) }}">Modifier</a>
                 <form action="{{ path('comment_delete', {'id': comment.id}) }}" method="POST" style="display:inline;">
+                    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
                     <button class="btn btn-danger" type="submit" onclick="return confirm('Supprimer ce commentaire ?')">Supprimer</button>
                 </form>
             {% endif %}
