@@ -46,18 +46,30 @@
     <!-- GRID DES CARDS -->
     <div class="grid grid-3">
         {% for star in stars %}
-            <div class="card star-card">
+            <div class="star-card d-flex flex-column justify-between">
 
-                <div class="Card image">
+                <!-- Image de la card -->
+                <div class="card">
                     <img
                         src="{{ star.image }}"
                         alt="{{ star.name }}"
-                        class="card-img"
+                        class="img-responsive"
                     >
                 </div>
 
+                <!-- Corps de la card -->
                 <div class="card-body text-center">
                     <h5 class="card-title">{{ star.name }}</h5>
+
+                    <!-- Boutons d'action sur la card -->
+                    <div class="snack">
+                        <a href="{{ path('star_edit', {'id': star.id}) }}" class="btn btn-filter">
+                            <i class="fa-solid fa-pen"></i> Modifier
+                        </a>
+                        <a href="{{ path('star_delete', {'id': star.id}) }}" class="btn btn-filter">
+                            <i class="fa-solid fa-trash"></i> Supprimer
+                        </a>
+                    </div>
                 </div>
 
             </div>
