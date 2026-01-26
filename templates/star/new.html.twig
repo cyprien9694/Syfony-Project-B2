@@ -87,16 +87,7 @@
 
 {% block body %}
     <h1>Ajouter une nouvelle étoile 🌟</h1>
-
-    {# Messages flash #}
-    {% for label, messages in app.flashes %}
-        {% for message in messages %}
-            <div class="flash-{{ label }}">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endfor %}
-
+    
     {{ form_start(form) }}
         {{ form_widget(form) }}
         <button class="btn">Ajouter</button>
