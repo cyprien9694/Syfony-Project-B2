@@ -45,14 +45,19 @@ class CategoryController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'category_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Category $category, EntityManagerInterface $em): Response
+    public function edit(int $id, Request $request, CategoryRepository $categoryRepository, EntityManagerInterface $em): Response
     {
+        $category = $categoryRepository->find($id);
+
+        if (!$category) {
+            throw $this->createNotFoundException('Catégorie introuvable.');
+        }
+
         $form = $this->createForm(CategoryType::class, $category);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
-
             $this->addFlash('success', 'Catégorie modifiée avec succès !');
 
             return $this->redirectToRoute('category_index');
@@ -65,8 +70,14 @@ class CategoryController extends AbstractController
     }
 
     #[Route('/{id}', name: 'category_delete', methods: ['POST'])]
-    public function delete(Request $request, Category $category, EntityManagerInterface $em): Response
+    public function delete(int $id, Request $request, CategoryRepository $categoryRepository, EntityManagerInterface $em): Response
     {
+        $category = $categoryRepository->find($id);
+
+        if (!$category) {
+            throw $this->createNotFoundException('Catégorie introuvable.');
+        }
+
         if ($this->isCsrfTokenValid('delete'.$category->getId(), $request->request->get('_token'))) {
             $em->remove($category);
             $em->flush();

@@ -16,7 +16,7 @@ class CategoryType extends AbstractType
             ->add('name', TextType::class, [
                 'label' => 'Nom de la catégorie',
                 'attr' => [
-                    'placeholder' => 'Ex : Géantes, Naines, Binaires...'
+                    'placeholder' => 'Ex : Galaxies, Etoiles, constellations...',
                 ]
             ]);
     }

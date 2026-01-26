@@ -25,8 +25,6 @@ final class StarController extends AbstractController
     public function new(Request $request, EntityManagerInterface $em): Response
     {
         $star = new Star();
-        $star->setCreatedAt(new \DateTimeImmutable()); // initialisation automatique
-
         $form = $this->createForm(StarType::class, $star);
         $form->handleRequest($request);
 
@@ -35,7 +33,6 @@ final class StarController extends AbstractController
             $em->flush();
 
             $this->addFlash('success', 'Étoile ajoutée ! 🌟');
-
             return $this->redirectToRoute('app_star');
         }
 
@@ -43,6 +40,7 @@ final class StarController extends AbstractController
             'form' => $form->createView(),
         ]);
     }
+
     #[Route('/star/edit/{id}', name: 'star_edit')]
     public function edit(Star $star, Request $request, EntityManagerInterface $em): Response
     {
@@ -50,9 +48,8 @@ final class StarController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $em->flush(); // seul flush() suffit, Doctrine suit déjà l'objet
+            $em->flush();
             $this->addFlash('success', 'Étoile mise à jour ! 🌟');
-
             return $this->redirectToRoute('app_star');
         }
 
@@ -61,10 +58,11 @@ final class StarController extends AbstractController
             'star' => $star,
         ]);
     }
-    #[Route('/star/delete/{id}', name: 'star_delete')]
-    public function delete(Star $star, EntityManagerInterface $em): Response
+
+    #[Route('/star/delete/{id}', name: 'star_delete', methods: ['POST'])]
+    public function delete(Request $request, Star $star, EntityManagerInterface $em): Response
     {
-        if ($star) {
+        if ($this->isCsrfTokenValid('delete'.$star->getId(), $request->request->get('_token'))) {
             $em->remove($star);
             $em->flush();
             $this->addFlash('success', 'Étoile supprimée ! ❌');
