@@ -26,7 +26,7 @@ class ContactType extends AbstractType
                 'label' => 'Email',
                 'attr' => [
                     'class' => 'form-control mb-3',
-                    'placeholder' => 'votre@email.com'
+                    'placeholder' => 'email@example.com'
                 ]
             ])
             ->add('subject', null, [
@@ -46,11 +46,11 @@ class ContactType extends AbstractType
             ])
             ->add('send', SubmitType::class, [
                 'label' => 'Envoyer',
+                'mapped' => false, // 🔥 LA LIGNE QUI BLOQUAIT TOUT
                 'attr' => [
                     'class' => 'btn btn-primary mt-3'
                 ]
-            ])
-        ;
+            ]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
