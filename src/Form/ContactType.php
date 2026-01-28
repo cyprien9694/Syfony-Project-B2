@@ -46,7 +46,6 @@ class ContactType extends AbstractType
             ])
             ->add('send', SubmitType::class, [
                 'label' => 'Envoyer',
-                'mapped' => false, // 🔥 LA LIGNE QUI BLOQUAIT TOUT
                 'attr' => [
                     'class' => 'btn btn-primary mt-3'
                 ]

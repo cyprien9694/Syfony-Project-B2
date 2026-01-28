@@ -2,9 +2,10 @@
 
 namespace App\Entity;
 
+use App\Repository\ContactRepository;
 use Doctrine\ORM\Mapping as ORM;
 
-#[ORM\Entity]
+#[ORM\Entity(repositoryClass: ContactRepository::class)]
 #[ORM\Table(name: 'contact')]
 class Contact
 {
@@ -25,12 +26,12 @@ class Contact
     #[ORM\Column(type: 'text')]
     private ?string $message = null;
 
-    #[ORM\Column(type: 'datetime')]
-    private ?\DateTimeInterface $created_at = null;
+    #[ORM\Column(type: 'datetime_immutable')]
+    private \DateTimeImmutable $created_at;
 
     public function __construct()
     {
-        $this->created_at = new \DateTime();
+        $this->created_at = new \DateTimeImmutable();
     }
 
     public function getId(): ?int
@@ -82,7 +83,7 @@ class Contact
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
+    public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->created_at;
     }

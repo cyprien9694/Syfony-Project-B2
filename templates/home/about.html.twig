@@ -8,34 +8,59 @@
 {% endblock %}
 
 {% block body %}
+<section class="container mt-5">
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
+
         <a class="navbar-brand fw-bold" href="{{ path('app_home') }}">
-            📬 Contact
+           ℹ️ Page de Contact
         </a>
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNavbar">
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+                    <a class="nav-link active" href="{{ path('app_home') }}">Accueil</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_star') }}">⭐ Étoiles</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_star_day') }}">🌟 Étoile du jour</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_about') }}">ℹ️ À propos</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_comment') }}">💬 Commentaires</a>
+                </li>
+
+            </ul>
+        </div>
     </div>
 </nav>
+    <h1 class="mb-4 text-center">Contactez-nous</h1>
 
-<section id="contact-form">
-    <div class="stars"></div>
+    {{ form_start(form, {
+        method: 'POST',
+        action: path('app_about')
+    }) }}
 
-    <div class="container text-center">
-        <h1 class="mb-4">Contactez-nous</h1>
+        {{ form_row(form.name) }}
+        {{ form_row(form.email) }}
+        {{ form_row(form.subject) }}
+        {{ form_row(form.message) }}
+        {{ form_row(form.send) }}
 
-        {{ form_start(form) }}
+    {{ form_end(form) }}
 
-            {{ form_row(form.name) }}
-            {{ form_row(form.email) }}
-            {{ form_row(form.subject) }}
-            {{ form_row(form.message) }}
-
-            <div class="text-center">
-                {{ form_widget(form.send) }}
-            </div>
-
-        {{ form_end(form) }}
-    </div>
 </section>
-
 {% endblock %}
