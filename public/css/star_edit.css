@@ -1,4 +1,14 @@
 /* 🌌 Carte édition étoilée */
+body {
+    background: radial-gradient(circle at center, #0d1b2a 0%, #000000 100%);
+    color: #e0e6f1;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    min-height: 100vh;
+    overflow-x: hidden;
+}
 .star-edit-card {
     border: none;
     border-radius: 18px;
