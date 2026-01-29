@@ -1,0 +1,148 @@
+/* ===== 🌌 Page À propos – Thème Étoiles ===== */
+
+/* Titre principal */
+h1 {
+    text-align: center;
+    font-size: 2.6rem;
+    margin-bottom: 25px;
+    background: linear-gradient(90deg, #ffd700, #9fd3ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 12px rgba(255, 215, 0, 0.4);
+}
+
+/* Paragraphe */
+p {
+    max-width: 800px;
+    margin: 0 auto 35px auto;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #d0d6f9;
+    text-align: center;
+}
+
+/* Ligne de séparation cosmique */
+hr {
+    border: none;
+    height: 2px;
+    width: 55%;
+    margin: 45px auto;
+    border-radius: 2px;
+    background: linear-gradient(
+        90deg,
+        transparent,
+        #9fd3ff,
+        #ffd700,
+        #9fd3ff,
+        transparent
+    );
+    box-shadow: 0 0 10px rgba(159, 211, 255, 0.6);
+}
+
+/* Sous-titres */
+h2 {
+    text-align: center;
+    margin-bottom: 30px;
+    font-weight: 700;
+    color: #9fd3ff;
+    text-shadow: 0 0 8px rgba(159, 211, 255, 0.5);
+}
+
+/* 🌠 Formulaire */
+form {
+    max-width: 620px;
+    margin: 0 auto 60px auto;
+    padding: 35px;
+    border-radius: 18px;
+    background: radial-gradient(circle at top, #1b2735 0%, #090a0f 75%);
+    box-shadow: 0 0 35px rgba(173, 216, 255, 0.15);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Effet étoiles en fond du formulaire */
+form::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image:
+        radial-gradient(1px 1px at 25% 30%, #fff, transparent),
+        radial-gradient(1px 1px at 75% 20%, #fff, transparent),
+        radial-gradient(1px 1px at 40% 80%, #fff, transparent),
+        radial-gradient(1px 1px at 65% 60%, #fff, transparent);
+    opacity: 0.35;
+    pointer-events: none;
+}
+
+/* Champs de formulaire */
+form input,
+form textarea,
+form select {
+    width: 100%;
+    padding: 13px 16px;
+    margin-bottom: 22px;
+    border-radius: 12px;
+    background-color: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+    transition: all 0.3s ease;
+}
+
+/* Placeholder */
+form input::placeholder,
+form textarea::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Focus lumineux */
+form input:focus,
+form textarea:focus,
+form select:focus {
+    outline: none;
+    border-color: #9fd3ff;
+    box-shadow: 0 0 14px rgba(159, 211, 255, 0.7);
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* 🚀 Bouton d’envoi */
+form button,
+form input[type="submit"] {
+    background: linear-gradient(135deg, #ffd700, #ff9f00);
+    color: #1b2735;
+    border: none;
+    padding: 13px 28px;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 18px rgba(255, 215, 0, 0.6);
+}
+
+form button:hover,
+form input[type="submit"]:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 28px rgba(255, 215, 0, 0.9);
+}
+
+/* Messages de validation Symfony */
+.form-error-message {
+    color: #ff6b6b;
+    font-size: 0.9rem;
+    margin-top: -14px;
+    margin-bottom: 12px;
+}
+
+/* 📱 Responsive */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.1rem;
+    }
+
+    h2 {
+        font-size: 1.5rem;
+    }
+
+    form {
+        padding: 22px;
+    }
+}
