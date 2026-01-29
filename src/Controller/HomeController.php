@@ -19,8 +19,8 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig');
     }
 
-    #[Route('/about', name: 'app_about')]
-    public function about(Request $request): Response
+    #[Route('/contact', name: 'app_contact')]
+    public function contact(Request $request): Response
     {
         $form = $this->createFormBuilder()
             ->add('name', TextType::class, [
@@ -43,12 +43,11 @@ class HomeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $this->addFlash('success', 'Message envoyé avec succès !');
-
-            return $this->redirectToRoute('app_about');
+    
+            return $this->redirectToRoute('app_contact');
         }
 
-        return $this->render('home/about.html.twig', [
+        return $this->render('home/contact.html.twig', [
             'form' => $form->createView(),
         ]);
     }
