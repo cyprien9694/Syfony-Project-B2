@@ -19,6 +19,12 @@ class Comment
     #[ORM\Column(type: 'text')]
     private ?string $content = null;
 
+    #[ORM\Column(length: 20)]
+    private ?string $category = null; // star | constellation | galaxy
+
+    #[ORM\Column(length: 255, nullable: true)]
+    private ?string $image = null;
+
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
 
@@ -27,7 +33,8 @@ class Comment
         $this->createdAt = new \DateTimeImmutable();
     }
 
-    // --- Getters et Setters ---
+    // GETTERS / SETTERS
+
     public function getId(): ?int
     {
         return $this->id;
@@ -55,14 +62,30 @@ class Comment
         return $this;
     }
 
+    public function getCategory(): ?string
+    {
+        return $this->category;
+    }
+
+    public function setCategory(string $category): self
+    {
+        $this->category = $category;
+        return $this;
+    }
+
+    public function getImage(): ?string
+    {
+        return $this->image;
+    }
+
+    public function setImage(?string $image): self
+    {
+        $this->image = $image;
+        return $this;
+    }
+
     public function getCreatedAt(): ?\DateTimeImmutable
     {
         return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeImmutable $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-        return $this;
     }
 }

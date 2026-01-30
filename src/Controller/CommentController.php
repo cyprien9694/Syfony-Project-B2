@@ -10,6 +10,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Entity\User;
 
 final class CommentController extends AbstractController
 {
@@ -27,19 +28,38 @@ final class CommentController extends AbstractController
     #[Route('/comment/new', name: 'comment_new')]
     public function new(Request $request, EntityManagerInterface $em): Response
     {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY'); // utilisateur connecté
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
+
+        $user = $this->getUser();
+
+        if (!$user instanceof User) {
+            throw $this->createAccessDeniedException();
+        }
 
         $comment = new Comment();
-        $comment->setAuthor($this->getUser()->getEmail());
+        $comment->setAuthor($this->getUser()?->getUserIdentifier() ?? 'Invité');
+        $comment = new Comment();
 
         $form = $this->createForm(CommentType::class, $comment);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
+            $imageFile = $form->get('image')->getData();
+
+            if ($imageFile) {
+                $filename = uniqid() . '.' . $imageFile->guessExtension();
+                $imageFile->move(
+                    $this->getParameter('comment_images_dir'),
+                    $filename
+                );
+                $comment->setImage($filename);
+            }
+
             $em->persist($comment);
             $em->flush();
-            $this->addFlash('success', 'Commentaire ajouté !');
 
+            $this->addFlash('success', 'Commentaire ajouté !');
             return $this->redirectToRoute('app_comment');
         }
 
@@ -48,6 +68,7 @@ final class CommentController extends AbstractController
             'app_user' => $this->getUser(),
         ]);
     }
+
 
     #[Route('/comment/{id}/edit', name: 'comment_edit')]
     public function edit(Comment $comment, Request $request, EntityManagerInterface $em): Response
@@ -75,7 +96,7 @@ final class CommentController extends AbstractController
     {
         $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
-        if ($this->isCsrfTokenValid('delete'.$comment->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $comment->getId(), $request->request->get('_token'))) {
             $em->remove($comment);
             $em->flush();
             $this->addFlash('success', 'Commentaire supprimé !');

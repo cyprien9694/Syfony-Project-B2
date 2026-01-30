@@ -9,10 +9,24 @@ body {
     color: #e6ebff;
     line-height: 1.6;
     margin: 0;
-    padding: 20px;
+    padding: 45px;
     box-sizing: border-box;
 }
+/* NAVBAR */
+.navbar {
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(10px);
+    position: fixed;
+    width: 100%;
+    left: 0%;
+    top: 0;
 
+}
+
+.navbar a.active {
+    color: #ffd700;
+    text-shadow: 0 0 10px rgba(255, 217, 0, 0.925);
+}
 /* =========================
    📦 CONTAINER
 ========================= */
