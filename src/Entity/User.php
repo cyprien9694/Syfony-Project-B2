@@ -6,6 +6,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use App\Repository\UserRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[ORM\Table(name: '`user`')]
@@ -25,17 +27,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string')]
     private ?string $password = null;
 
-    // --- Getters & Setters ---
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: Comment::class, orphanRemoval: true)]
+    private Collection $comments;
 
-    public function getId(): ?int
+    public function __construct()
     {
-        return $this->id;
+        $this->comments = new ArrayCollection();
     }
 
-    public function getEmail(): ?string
-    {
-        return $this->email;
-    }
+    public function getId(): ?int { return $this->id; }
+
+    public function getEmail(): ?string { return $this->email; }
 
     public function setEmail(string $email): self
     {
@@ -43,21 +45,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * A visual identifier that represents this user.
-     */
     public function getUserIdentifier(): string
     {
         return (string) $this->email;
     }
 
-    /**
-     * @return array<int, string>
-     */
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
         $roles[] = 'ROLE_USER';
         return array_unique($roles);
     }
@@ -68,10 +63,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getPassword(): string
-    {
-        return $this->password;
-    }
+    public function getPassword(): string { return $this->password; }
 
     public function setPassword(string $password): self
     {
@@ -79,8 +71,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function eraseCredentials(): void
+    public function eraseCredentials(): void {}
+
+    /** @return Collection<int, Comment> */
+    public function getComments(): Collection
     {
-        // If you store temporary sensitive data on the user, clear it here
+        return $this->comments;
     }
 }

@@ -3,12 +3,21 @@
 {% block title %}Modifier le commentaire{% endblock %}
 
 {% block body %}
-<h1>Modifier le commentaire</h1>
+<main>
+    <h1 class="mb-3">Modifier le commentaire</h1>
 
-{{ form_start(form, { 'attr': {'enctype': 'multipart/form-data'} }) }}
-    {{ form_widget(form) }}
-    <button class="btn" type="submit">Enregistrer</button>
-{{ form_end(form) }}
+    <div class="comment-form">
+        {{ form_start(form, { 'attr': {'enctype': 'multipart/form-data'} }) }}
+        <div class="form-group mb-2">
+            {{ form_widget(form.content) }}
+        </div>
+        {% if form.image is defined %}
+            <div class="form-group mb-2">{{ form_widget(form.image) }}</div>
+        {% endif %}
+        <button class="btn" type="submit">Modifier</button>
+        {{ form_end(form) }}
+    </div>
 
-<a href="{{ path('app_comment') }}">Retour à la liste</a>
+    <a href="{{ path('app_comment') }}" class="btn btn-secondary mt-3">Retour à la liste</a>
+</main>
 {% endblock %}

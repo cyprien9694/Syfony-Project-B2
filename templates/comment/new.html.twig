@@ -3,26 +3,21 @@
 {% block title %}Ajouter un commentaire{% endblock %}
 
 {% block body %}
-
 <main>
     <h1 class="mb-3">Ajouter un commentaire</h1>
 
     <div class="comment-form">
         {{ form_start(form, { 'attr': {'enctype': 'multipart/form-data'} }) }}
-
-        <!-- Upload image (optionnel) -->
+        <div class="form-group mb-2">
+            {{ form_widget(form.content) }}
+        </div>
         {% if form.image is defined %}
-            <div class="form-group mb-2">
-                {{ form_widget(form.image) }}
-            </div>
+            <div class="form-group mb-2">{{ form_widget(form.image) }}</div>
         {% endif %}
-
         <button class="btn" type="submit">Envoyer</button>
-
         {{ form_end(form) }}
     </div>
 
     <a href="{{ path('app_comment') }}" class="btn btn-secondary mt-3">Retour à la liste</a>
 </main>
-
 {% endblock %}

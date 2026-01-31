@@ -1,5 +1,5 @@
 <?php
-
+// src/Repository/CommentRepository.php
 namespace App\Repository;
 
 use App\Entity\Comment;
@@ -11,18 +11,5 @@ class CommentRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Comment::class);
-    }
-
-    /**
-     * Récupère tous les commentaires triés par date décroissante
-     *
-     * @return Comment[]
-     */
-    public function findAllOrdered(): array
-    {
-        return $this->createQueryBuilder('c')
-            ->orderBy('c.createdAt', 'DESC')
-            ->getQuery()
-            ->getResult();
     }
 }

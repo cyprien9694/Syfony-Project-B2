@@ -12,9 +12,9 @@
 	<body>
 		<header>
 			<a href="{{ path('app_comment') }}">Commentaires</a>
-			{% if app_user %}
+			{% if app.user %}
 				<span>Bonjour,
-					{{ app_user.email }}</span>
+					{{ app.user.email }}</span>
 				<a href="{{ path('app_logout') }}">Déconnexion</a>
 			{% else %}
 				<a href="{{ path('app_login') }}">Connexion</a>
