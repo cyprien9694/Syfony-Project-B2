@@ -14,16 +14,16 @@ class Contact
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column(length: 100)]
+    #[ORM\Column(length: 100, nullable: false)]
     private ?string $name = null;
 
-    #[ORM\Column(length: 180)]
+    #[ORM\Column(length: 180, nullable: false)]
     private ?string $email = null;
 
-    #[ORM\Column(length: 150)]
+    #[ORM\Column(length: 150, nullable: false)]
     private ?string $subject = null;
 
-    #[ORM\Column(type: 'text')]
+    #[ORM\Column(type: 'text', nullable: false)]
     private ?string $message = null;
 
     #[ORM\Column(type: 'datetime_immutable')]
@@ -86,5 +86,11 @@ class Contact
     public function getCreatedAt(): \DateTimeImmutable
     {
         return $this->created_at;
+    }
+
+    public function setCreatedAt(\DateTimeImmutable $created_at): self
+    {
+        $this->created_at = $created_at;
+        return $this;
     }
 }

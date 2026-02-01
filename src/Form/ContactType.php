@@ -9,55 +9,40 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class ContactType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name', null, [
+            ->add('name', TextType::class, [
                 'label' => 'Nom',
-                'attr' => [
-                    'class' => 'form-control mb-3',
-                    'placeholder' => 'Votre nom'
-                ]
+                'required' => true,
+                'attr' => ['placeholder' => 'Votre nom', 'class' => 'form-control mb-3'],
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
-                'attr' => [
-                    'class' => 'form-control mb-3',
-                    'placeholder' => 'email@example.com'
-                ]
+                'required' => true,
+                'attr' => ['placeholder' => 'email@example.com', 'class' => 'form-control mb-3'],
             ])
-            ->add('subject', null, [
+            ->add('subject', TextType::class, [
                 'label' => 'Sujet',
-                'attr' => [
-                    'class' => 'form-control mb-3',
-                    'placeholder' => 'Sujet du message'
-                ]
+                'required' => true,
+                'attr' => ['placeholder' => 'Sujet du message', 'class' => 'form-control mb-3'],
             ])
             ->add('message', TextareaType::class, [
                 'label' => 'Message',
-                'attr' => [
-                    'class' => 'form-control mb-3',
-                    'rows' => 5,
-                    'placeholder' => 'Votre message...'
-                ]
+                'required' => true,
+                'attr' => ['placeholder' => 'Votre message...', 'class' => 'form-control mb-3', 'rows' => 5],
             ])
-            ->add('send', SubmitType::class, [
-                'label' => 'Envoyer',
-                'attr' => [
-                    'class' => 'btn btn-primary mt-3'
-                ]
-            ]);
+            ->add('send', SubmitType::class, ['label' => 'Envoyer', 'attr' => ['class' => 'btn btn-primary mt-3']]);
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
             'data_class' => Contact::class,
-            'csrf_protection' => false,
         ]);
     }
-    
 }

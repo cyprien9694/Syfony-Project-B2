@@ -1,10 +1,11 @@
 <?php
-// src/Entity/Comment.php
+
 namespace App\Entity;
 
 use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Entity\User;
 
 #[ORM\Entity(repositoryClass: CommentRepository::class)]
 class Comment
@@ -31,8 +32,8 @@ class Comment
     #[ORM\Column(type:"string", length:255, nullable:true)]
     private ?string $image = null;
 
-    // RELATION AVEC USER (facultatif)
-    #[ORM\ManyToOne(targetEntity: User::class)]
+    // RELATION AVEC USER
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'comments')]
     #[ORM\JoinColumn(nullable:false)]
     private ?User $user = null;
 
