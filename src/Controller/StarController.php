@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Star;
+use App\Entity\Category;
 use App\Form\StarType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -12,15 +13,33 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class StarController extends AbstractController
 {
-    #[Route('/star', name: 'app_star')]
-    public function index(EntityManagerInterface $em): Response
+#[Route('/star', name: 'app_star')]
+    public function index(EntityManagerInterface $em, Request $request): Response
     {
-        $stars = $em->getRepository(Star::class)->findAll();
+        // Récupérer le paramètre de filtre depuis l'URL
+        $categoryId = $request->query->get('category');
+
+        // Récupérer toutes les catégories pour le select
+        $categories = $em->getRepository(Category::class)->findAll();
+
+        // Récupérer les étoiles selon le filtre
+        if ($categoryId && $categoryId !== 'all') {
+            // Filtrer par catégorie spécifique
+            $stars = $em->getRepository(Star::class)->findBy(
+                ['category' => $categoryId],
+                ['createdAt' => 'DESC']
+            );
+        } else {
+            // Récupérer toutes les étoiles
+            $stars = $em->getRepository(Star::class)->findBy([], ['createdAt' => 'DESC']);
+        }
+
         return $this->render('star/index.html.twig', [
             'stars' => $stars,
+            'categories' => $categories,
+            'selectedCategory' => $categoryId ?: 'all',
         ]);
     }
-
     #[Route('/star/new', name: 'star_new')]
     public function new(Request $request, EntityManagerInterface $em): Response
     {
@@ -70,4 +89,5 @@ final class StarController extends AbstractController
 
         return $this->redirectToRoute('app_star');
     }
+    
 }

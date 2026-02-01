@@ -4,7 +4,7 @@
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background:
-        radial-gradient(ellipse at top, rgba(255,255,255,0.05), transparent 60%),
+        radial-gradient(ellipse at top, rgba(255, 255, 255, 0.05), transparent 60%),
         radial-gradient(ellipse at bottom, #0d1b2a 0%, #020617 100%);
     color: #e6ebff;
     line-height: 1.6;
@@ -12,9 +12,10 @@ body {
     padding: 45px;
     box-sizing: border-box;
 }
+
 /* NAVBAR */
 .navbar {
-    background: rgba(0,0,0,0.6);
+    background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(10px);
     position: fixed;
     width: 100%;
@@ -27,6 +28,7 @@ body {
     color: #ffd700;
     text-shadow: 0 0 10px rgba(255, 217, 0, 0.925);
 }
+
 /* =========================
    📦 CONTAINER
 ========================= */
@@ -111,11 +113,9 @@ body {
     position: relative;
     border-radius: 18px;
     overflow: hidden;
-    background: linear-gradient(
-        135deg,
-        rgba(255, 255, 255, 0.12),
-        rgba(255, 255, 255, 0.04)
-    );
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.12),
+            rgba(255, 255, 255, 0.04));
     backdrop-filter: blur(14px);
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow:
@@ -156,7 +156,7 @@ body {
    📄 CARD BODY
 ========================= */
 .card-body {
-    padding: 18px;
+    padding: 15px;
     text-align: center;
 }
 
@@ -174,6 +174,7 @@ body {
     justify-content: center;
     gap: 12px;
     margin-top: 12px;
+    align-items: baseline;
 }
 
 /* =========================
@@ -187,6 +188,7 @@ body {
     border-radius: 10px;
     margin-bottom: 18px;
     box-shadow: 0 0 12px rgba(143, 255, 193, 0.3);
+    margin-top: 3%;
 }
 
 .flash-error {
@@ -197,6 +199,7 @@ body {
     border-radius: 10px;
     margin-bottom: 18px;
     box-shadow: 0 0 12px rgba(255, 159, 168, 0.3);
+    margin-top: 3%;
 }
 
 /* =========================
