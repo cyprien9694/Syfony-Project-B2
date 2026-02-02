@@ -1,11 +1,29 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Bonjour{% endblock %}
+{% block title %}Bienvenue{% endblock %}
+
+{% block stylesheets %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('css/hello.css') }}">
+{% endblock %}
 
 {% block body %}
-<h1>Bonjour {{ name }} 👋</h1>
+<main class="hello-wrapper d-flex align-items-center justify-content-center">
+    <div class="hello-card text-center shadow-lg">
+        
+        <h1 class="hello-title mb-3">
+            Bonjour <span class="hello-name">{{ name }}</span>
+        </h1>
 
-<p>
-    Ravi de vous voir explorer le ciel avec nous.
-</p>
+        <p class="hello-text mb-4">
+            Ravi de vous voir explorer le ciel avec nous ✨  
+            <br>
+            Préparez-vous à voyager parmi les étoiles 🚀
+        </p>
+
+        <a href="{{ path('app_home') }}" class="btn btn-primary btn-lg px-4">
+            Découvrir le site
+        </a>
+    </div>
+</main>
 {% endblock %}
