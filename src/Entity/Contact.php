@@ -26,6 +26,8 @@ class Contact
     #[ORM\Column(type: 'text', nullable: false)]
     private ?string $message = null;
 
+    #[ORM\Column(type: 'datetime')]
+    private \DateTime $created_at;
 
     public function __construct()
     {
