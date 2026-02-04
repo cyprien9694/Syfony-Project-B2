@@ -20,25 +20,12 @@ class ContactController extends AbstractController
         $form = $this->createForm(ContactType::class, $contact);
 
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
 
-            // DEBUG : voir ce qui est dans $contact
-            dump($contact);
-            // ou pour logs : error_log(print_r($contact, true));
+        if ($form->isSubmitted() && $form->isValid()) {
 
             $em->persist($contact);
             $em->flush();
 
-            return $this->redirectToRoute('app_contact_confirmation', [
-                'id' => $contact->getId(),
-            ]);
-        }
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em->persist($contact);
-            $em->flush();
-
-            // Redirige vers la page de confirmation (PRG pattern)
             return $this->redirectToRoute('app_contact_confirmation', [
                 'id' => $contact->getId(),
             ]);
