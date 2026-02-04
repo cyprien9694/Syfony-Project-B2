@@ -1,78 +1,81 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Étoile du jour{% endblock %}
+{% block title %}Étoiles visibles ce soir{% endblock %}
 
 {% block stylesheets %}
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="{{ asset('css/starday.css') }}">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('css/star.css') }}">
 {% endblock %}
 
 {% block body %}
-
 <!-- NAVBAR -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
-
-        <a class="navbar-brand fw-bold" href="{{ path('app_home') }}">
-            🌟 Étoile du jour
-        </a>
-
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="mainNavbar">
+        <a class="navbar-brand fw-bold" href="{{ path('app_home') }}">🌟 Étoile du jour</a>
+        <div class="collapse navbar-collapse">
             <ul class="navbar-nav ms-auto">
-
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_home') }}">Accueil</a>
                 </li>
-
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_star') }}">⭐ Étoiles</a>
                 </li>
-
                 <li class="nav-item">
                     <a class="nav-link active" href="{{ path('app_star_day') }}">🌟 Étoile du jour</a>
                 </li>
-
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_contact') }}">ℹ️ Contact</a>
                 </li>
-
                 <li class="nav-item">
                     <a class="nav-link" href="{{ path('app_comment') }}">💬 Commentaires</a>
                 </li>
-
             </ul>
         </div>
     </div>
 </nav>
 
-<!-- SECTION ÉTOILE DU JOUR -->
-<section id="star-day">
+<!-- CONTENU PRINCIPAL -->
+<main class="container content">
 
-    <!-- Fond étoilé -->
-    <div class="stars"></div>
-
-    <div class="container text-center">
-
-        <h1>🌟 Étoile du jour</h1>
-
-        <div class="star-card">
-            <h2>{{ star|upper }}</h2>
-
-            <p class="date">
-                {{ "now"|date("d/m/Y") }}
-            </p>
-
-            <p class="description">
-                Chaque jour, une étoile différente à découvrir.
-                Prenez le temps d’observer le ciel ce soir ✨
-            </p>
-        </div>
-
+    <!-- HEADER PAGE -->
+    <div class="d-flex justify-content-between align-items-center mb-4 flex-wrap gap-3">
+        <h2 class="page-title">🌟 Étoiles visibles ce soir</h2>
     </div>
-</section>
 
+    <!-- GRID DES CARDS -->
+    <div class="grid grid-4">
+        {% for star in stars %}
+        <div class="star-card d-flex flex-column col-6 col-md-4 col-lg-3 col-xl-12
+            {% if star.seen %}opacity-75{% endif %}">
+
+            <div class="image-center">
+                <img src="{{ star.image }}" alt="{{ star.name }}" class="image">
+            </div>
+
+            <div class="card-body text-center">
+                <h5 class="card-title">{{ star.name }}</h5>
+                <p class="card-date">Catégorie : {{ star.category }}</p>
+
+                {% if star.seen %}
+                <span class="badge bg-success mb-2">Déjà observée 🌌</span>
+                {% endif %}
+
+                <form method="post" action="{{ path('star_seen', {id: star.id}) }}">
+                    <input type="hidden" name="_token" value="{{ csrf_token('seen' ~ star.id) }}">
+                    <div class="form-check d-flex justify-content-center mt-2">
+                        <input class="form-check-input me-2" type="checkbox" onchange="this.form.submit()" {% if
+                            star.seen %}checked{% endif %}>
+                        <label class="form-check-label">
+                            Je l’ai observée
+                        </label>
+                    </div>
+                </form>
+            </div>
+        </div>
+        {% else %}
+        <p class="text-center text-muted">Aucune étoile visible ce soir 🌙</p>
+        {% endfor %}
+    </div>
+
+</main>
 {% endblock %}

@@ -2,6 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\StarOfTheDay;
+use App\Repository\StarOfTheDayRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -43,7 +46,7 @@ class HomeController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-    
+
             return $this->redirectToRoute('app_contact');
         }
 
@@ -61,13 +64,30 @@ class HomeController extends AbstractController
     }
 
     #[Route('/star-of-the-day', name: 'app_star_day')]
-    public function starOfTheDay(): Response
+    public function starOfTheDay(StarOfTheDayRepository $repository): Response
     {
-        $stars = ['Sirius', 'Canopus', 'Vega', 'Arcturus', 'Rigel'];
+        // Récupère les étoiles du jour visibles le soir
+        $stars = $repository->findTodayStars();
 
         return $this->render('home/star_of_the_day.html.twig', [
-            'star' => $stars[array_rand($stars)],
+            'stars' => $stars,
         ]);
     }
 
+    #[Route('/star-of-the-day/{id}/seen', name: 'star_seen', methods: ['POST'])]
+    public function markSeen(
+        StarOfTheDay $star,
+        Request $request,
+        EntityManagerInterface $em
+    ): Response {
+        // Vérifie le token CSRF
+        if ($this->isCsrfTokenValid('seen' . $star->getId(), $request->request->get('_token'))) {
+            // Bascule l’état "vue" (checked/unchecked)
+            $star->setSeen(!$star->isSeen());
+            $em->flush();
+        }
+
+        // Redirige vers la page des étoiles du jour
+        return $this->redirectToRoute('app_star_day');
+    }
 }
