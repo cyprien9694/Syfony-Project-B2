@@ -13,7 +13,7 @@ body {
     box-sizing: border-box;
 }
 
-/* NAVBAR */w
+/* NAVBAR */
 .navbar {
     background: rgba(0, 0, 0, 0.6);
     backdrop-filter: blur(10px);
@@ -21,7 +21,6 @@ body {
     width: 100%;
     left: 0%;
     top: 0;
-
 }
 
 .navbar a.active {
