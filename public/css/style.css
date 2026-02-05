@@ -102,6 +102,23 @@
     animation: fadeUp 1s ease forwards;
 }
 
+.btn-logout {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+}
+
+.btn-logout:hover {
+    transform: rotate(90deg);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+}
 /* ANIMATIONS */
 @keyframes fadeUp {
     from {
