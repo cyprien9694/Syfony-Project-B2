@@ -1,166 +1,52 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion - Sky of Tonight</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
-    <style>
-        body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-        }
-        
-        .login-container {
-            width: 100%;
-            max-width: 400px;
-        }
-        
-        .login-card {
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-        }
-        
-        .login-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .login-header h1 {
-            color: #333;
-            font-size: 1.8rem;
-            margin-bottom: 10px;
-        }
-        
-        .login-header p {
-            color: #666;
-            margin: 0;
-        }
-        
-        .form-group {
-            margin-bottom: 20px;
-        }
-        
-        .form-control {
-            width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 16px;
-            transition: all 0.3s;
-        }
-        
-        .form-control:focus {
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
-            outline: none;
-        }
-        
-        .btn-login {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-        
-        .btn-login:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
-        }
-        
-        .login-links {
-            text-align: center;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #e0e0e0;
-        }
-        
-        .login-links a {
-            color: #667eea;
-            text-decoration: none;
-        }
-        
-        .login-links a:hover {
-            text-decoration: underline;
-        }
-        
-        .alert {
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        .alert-danger {
-            background-color: #fee;
-            border: 1px solid #fcc;
-            color: #c00;
-        }
-    </style>
 </head>
+{% block stylesheets %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('css/login.css') }}">
+{% endblock %}
+
 <body>
     <div class="login-container">
         <div class="login-card">
             <div class="login-header">
-                <h1>🌌 Sky of Tonight</h1>
+                <h1 class="star-title">Sky of Tonight</h1>
                 <p>Connectez-vous à votre compte</p>
             </div>
-            
+
             {% if error %}
-                <div class="alert alert-danger">
-                    <i class="fas fa-exclamation-triangle"></i>
-                    {{ error.messageKey|trans(error.messageData, 'security') }}
-                </div>
+            <div class="alert alert-danger">
+                <i class="fas fa-exclamation-triangle"></i>
+                {{ error.messageKey|trans(error.messageData, 'security') }}
+            </div>
             {% endif %}
 
             <form method="post" action="{{ path('app_comment') }}">
                 {% if csrf_token('authenticate') %}
-                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
                 {% endif %}
 
                 <div class="form-group">
                     <label for="username">Email</label>
-                    <input type="email" 
-                           id="username" 
-                           name="_username" 
-                           value="{{ last_username|default('') }}" 
-                           class="form-control" 
-                           required 
-                           autofocus
-                           placeholder="votre@email.com">
+                    <input type="email" id="username" name="_username" value="{{ last_username|default('') }}"
+                        class="form-control" required autofocus placeholder="votre@email.com">
                 </div>
 
                 <div class="form-group">
                     <label for="password">Mot de passe</label>
-                    <input type="password" 
-                           id="password" 
-                           name="_password" 
-                           class="form-control" 
-                           required
-                           placeholder="••••••••">
+                    <input type="password" id="password" name="_password" class="form-control" required
+                        placeholder="••••••••">
                 </div>
 
                 <div class="form-group">
                     <div style="display: flex; align-items: center;">
-                        <input type="checkbox" 
-                               name="_remember_me" 
-                               id="remember_me" 
-                               style="margin-right: 8px;">
+                        <input type="checkbox" name="_remember_me" id="remember_me" style="margin: 0;">
                         <label for="remember_me" style="margin: 0;">
                             Se souvenir de moi
                         </label>
@@ -174,7 +60,7 @@
 
             <div class="login-links">
                 <p style="margin-bottom: 10px;">
-                    Pas encore de compte ? 
+                    Pas encore de compte ?
                     <a href="{{ path('app_register') }}">S'inscrire</a>
                 </p>
                 <p style="margin: 0;">
@@ -186,4 +72,5 @@
         </div>
     </div>
 </body>
+
 </html>

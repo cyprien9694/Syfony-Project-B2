@@ -1,0 +1,151 @@
+ body {
+     background: radial-gradient(ellipse at bottom, #0d1b2a 0%, #020617 100%);
+     color: #fff;
+     min-height: 100vh;
+     margin: 0;
+     padding: 20px;
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+ }
+
+ .star-title {
+     font-size: 2.6rem;
+     font-weight: 800;
+     margin-bottom: 18px;
+     background: linear-gradient(90deg, #ffffff, #9fd3ff, #ffd700);
+     -webkit-background-clip: text;
+     -webkit-text-fill-color: transparent;
+     text-shadow: 0 0 15px rgba(159, 211, 255, 0.7);
+ }
+
+ .register-container {
+     width: 100%;
+     max-width: 450px;
+ }
+
+ .register-card {
+     background: linear-gradient(135deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.04));
+     border-radius: 15px;
+     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+     padding: 40px;
+ }
+
+ .register-header {
+     text-align: center;
+     margin-bottom: 30px;
+ }
+
+ .register-header h1 {
+     color: #333;
+     font-size: 1.8rem;
+     margin-bottom: 10px;
+ }
+
+ .register-header p {
+     color: #fff;
+     margin: 0;
+ }
+
+ .form-group {
+     margin-bottom: 20px;
+ }
+
+ .form-label {
+     display: block;
+     margin-bottom: 8px;
+     font-weight: 500;
+     color: #fff;
+ }
+
+ .form-control {
+     width: 100%;
+     padding: 12px 15px;
+     border: 2px solid #e0e0e0;
+     border-radius: 8px;
+     font-size: 16px;
+     transition: all 0.3s;
+ }
+
+ .form-control:focus {
+     border-color: #667eea;
+     box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+     outline: none;
+ }
+
+ .btn-register {
+     width: 100%;
+     padding: 12px;
+     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+     color: white;
+     border: none;
+     border-radius: 8px;
+     font-size: 16px;
+     font-weight: 600;
+     cursor: pointer;
+     transition: transform 0.3s;
+ }
+
+ .btn-register:hover {
+     transform: translateY(-2px);
+     box-shadow: 0 7px 14px rgba(50, 50, 93, 0.1), 0 3px 6px rgba(0, 0, 0, 0.08);
+ }
+
+ .register-links {
+     text-align: center;
+     margin-top: 20px;
+     padding-top: 20px;
+     border-top: 1px solid #e0e0e0;
+ }
+
+ .register-links a {
+     color: #667eea;
+     text-decoration: none;
+ }
+
+ .register-links a:hover {
+     text-decoration: underline;
+ }
+
+ .alert {
+     padding: 12px;
+     border-radius: 8px;
+     margin-bottom: 20px;
+     text-align: center;
+ }
+
+ .alert-success {
+     background-color: #d4edda;
+     border: 1px solid #c3e6cb;
+     color: #155724;
+ }
+
+ .alert-danger {
+     background-color: #f8d7da;
+     border: 1px solid #f5c6cb;
+     color: #721c24;
+ }
+
+ .form-error {
+     color: #dc3545;
+     font-size: 0.875rem;
+     margin-top: 5px;
+ }
+
+ .password-strength {
+     margin-top: 5px;
+     font-size: 0.875rem;
+ }
+
+ .strength-weak {
+     color: #dc3545;
+ }
+
+ .strength-medium {
+     color: #ffc107;
+ }
+
+ .strength-strong {
+     color: #28a745;
+ }
