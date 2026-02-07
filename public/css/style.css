@@ -1,7 +1,16 @@
 /* ============================
    PAGE ACCUEIL – HERO ÉTOILÉ
 ============================ */
-
+/* FOND */
+body {
+    background: radial-gradient(ellipse at bottom, #0d1b2a 0%, #020617 100%);
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 4%;
+    box-sizing: border-box;
+}
 #home-hero {
     position: relative;
     min-height: 100vh;
@@ -94,7 +103,13 @@
     color: #fff;
     backdrop-filter: blur(6px);
 }
-
+.sond-btn {
+    padding: 14px 30px;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    background: linear-gradient(135deg, #6C63FF, #5454D4);
+    backdrop-filter: blur(6px);
+}
 /* APPARITION */
 #home-hero .container {
     position: relative;
