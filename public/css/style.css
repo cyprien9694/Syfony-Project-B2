@@ -97,19 +97,42 @@ body {
 }
 
 #home-hero .btn-outline-light {
-    padding: 14px 30px;
-    border-radius: 16px;
-    border: 1px solid rgba(255,255,255,0.4);
+    border: 2px solid rgba(255, 255, 255, 0.6);
     color: #fff;
-    backdrop-filter: blur(6px);
+    padding: 12px 28px;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+}
+#home-hero .btn-outline-light:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
 }
 .sond-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1000;
     padding: 14px 30px;
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.4);
     background: linear-gradient(135deg, #6C63FF, #5454D4);
     backdrop-filter: blur(6px);
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    box-shadow: 0 8px 20px rgba(108, 99, 255, 0.35);
+    transition: all 0.25s ease;
 }
+.sond-btn:hover {
+    transform: translateY(-2px) scale(1.03);
+    box-shadow: 0 12px 30px rgba(108, 99, 255, 0.6);
+}
+
+.sond-btn:active {
+    transform: scale(0.97);
+}
+
 /* APPARITION */
 #home-hero .container {
     position: relative;
