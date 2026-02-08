@@ -157,12 +157,11 @@ form select:focus {
 }
 
 /* BOUTON ENVOI */
-form button,
-form input[type="submit"] {
+.btn-primary {
     background: linear-gradient(135deg, #ffd700, #ff9f00);
     color: #1b2735;
     border: none;
-    padding: 13px 28px;
+    padding: 10px 10px;
     border-radius: 12px;
     font-weight: 700;
     cursor: pointer;
