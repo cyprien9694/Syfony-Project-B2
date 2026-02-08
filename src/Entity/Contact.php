@@ -11,29 +11,19 @@ class Contact
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
+    #[ORM\Column(type: 'integer')]
+    private $id;
 
-    #[ORM\Column(length: 100, nullable: false)]
-    private ?string $name = null;
+    #[ORM\Column(type: 'string', length: 255)]
+    private $name;
 
-    #[ORM\Column(length: 180, nullable: false)]
-    private ?string $email = null;
+    #[ORM\Column(type: 'string', length: 255)]
+    private $email;
 
-    #[ORM\Column(length: 150, nullable: false)]
-    private ?string $subject = null;
+    #[ORM\Column(type: 'text')]
+    private $message;
 
-    #[ORM\Column(type: 'text', nullable: false)]
-    private ?string $message = null;
-
-    #[ORM\Column(type: 'datetime')]
-    private \DateTime $created_at;
-
-    public function __construct()
-    {
-        $this->created_at = new \DateTime();
-    }
-
+    
     public function getId(): ?int
     {
         return $this->id;
@@ -47,6 +37,7 @@ class Contact
     public function setName(string $name): self
     {
         $this->name = $name;
+
         return $this;
     }
 
@@ -58,17 +49,7 @@ class Contact
     public function setEmail(string $email): self
     {
         $this->email = $email;
-        return $this;
-    }
 
-    public function getSubject(): ?string
-    {
-        return $this->subject;
-    }
-
-    public function setSubject(string $subject): self
-    {
-        $this->subject = $subject;
         return $this;
     }
 
@@ -80,17 +61,7 @@ class Contact
     public function setMessage(string $message): self
     {
         $this->message = $message;
-        return $this;
-    }
 
-    public function getCreatedAt(): \DateTime
-    {
-        return $this->created_at;
-    }
-
-    public function setCreatedAt(\DateTime $created_at): self
-    {
-        $this->created_at = $created_at;
         return $this;
     }
 }

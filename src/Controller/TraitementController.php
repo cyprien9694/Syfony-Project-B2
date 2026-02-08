@@ -12,10 +12,9 @@ class TraitementController extends AbstractController
     #[Route('/contact/confirmation/{id}', name: 'app_contact_confirmation')]
     public function confirmation(Contact $contact): Response
     {
-        return $this->render('traitement.html.twig', [
-            'name'    => $contact->getName(),
-            'email'   => $contact->getEmail(),
-            'subject' => $contact->getSubject(),
+        return $this->render('home/traitement.html.twig', [
+            'name' => $contact->getName(),
+            'email' => $contact->getEmail(),
             'message' => $contact->getMessage(),
         ]);
     }

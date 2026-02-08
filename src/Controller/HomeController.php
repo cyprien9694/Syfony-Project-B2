@@ -22,39 +22,6 @@ class HomeController extends AbstractController
         return $this->render('home/index.html.twig');
     }
 
-    #[Route('/contact', name: 'app_contact')]
-    public function contact(Request $request): Response
-    {
-        $form = $this->createFormBuilder()
-            ->add('name', TextType::class, [
-                'label' => 'Nom',
-            ])
-            ->add('email', EmailType::class, [
-                'label' => 'Email',
-            ])
-            ->add('subject', TextType::class, [
-                'label' => 'Sujet',
-            ])
-            ->add('message', TextareaType::class, [
-                'label' => 'Message',
-            ])
-            ->add('send', SubmitType::class, [
-                'label' => 'Envoyer',
-            ])
-            ->getForm();
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            return $this->redirectToRoute('app_contact');
-        }
-
-        return $this->render('home/contact.html.twig', [
-            'form' => $form->createView(),
-        ]);
-    }
-
     #[Route('/hello/{name}', name: 'app_hello')]
     public function hello(string $name): Response
     {
