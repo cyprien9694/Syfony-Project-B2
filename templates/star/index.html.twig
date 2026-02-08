@@ -59,10 +59,10 @@
 	<!-- FILTRE -->
 	<form method="get" action="{{ path('app_star') }}"
 		class="filtre-form d-flex align-items-center gap-2 mb-4 flex-wrap">
-		<select name="category" class="form-select" style="width: 200px;">
-			<option value="all">Toutes les catégories</option>
+		<select name="category" class="form-select">
+			<option class="categories" value="all">Toutes les catégories</option>
 			{% for category in categories %}
-			<option value="{{ category.id }}" {% if selectedCategory==category.id %}selected{% endif %}>
+			<option class="categories" value="{{ category.id }}" {% if selectedCategory==category.id %}selected{% endif %}>
 				{{ category.name }}
 			</option>
 			{% endfor %}

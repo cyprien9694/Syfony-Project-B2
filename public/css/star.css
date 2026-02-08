@@ -216,7 +216,48 @@ a:hover {
     color: #ffffff;
     text-decoration: none;
 }
-
+.form-select{
+    background-color: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+    padding: 10px 16px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    width: 200px;
+}
+.form-select:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 14px rgba(255, 255, 255, 0.5);
+    color: #ffffff;
+}
+.categories {
+    color: black;
+    padding: 10px 16px;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+.categories:hover {
+    background-color: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 14px rgba(255, 255, 255, 0.5);
+    color: #ffffff;
+}
+.btn-outline-primary {
+    border: 2px solid rgba(159, 211, 255, 0.4);
+    color: #9fd3ff;
+    background: transparent;
+    padding: 10px 22px;
+    border-radius: 30px;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+.btn-outline-primary:hover {
+    background: rgba(159, 211, 255, 0.2);
+    border-color: #9fd3ff;
+    box-shadow: 0 0 12px rgba(159, 211, 255, 0.6);
+    color: #ffffff;
+}
 /* =========================
    📱 RESPONSIVE
 ========================= */
