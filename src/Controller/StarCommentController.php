@@ -33,7 +33,7 @@ class StarCommentController extends AbstractController
         
         // Pré-remplir l'auteur si l'utilisateur est connecté
         if ($this->getUser()) {
-            $comment->setAuthor($this->getUser()->getEmail());
+            $comment->setAuthor($this->getUser()->getUserIdentifier());
             $comment->setUser($this->getUser());
         }
         
