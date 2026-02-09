@@ -4,107 +4,119 @@
 {% endblock %}
 
 {% block stylesheets %}
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-	<link rel="stylesheet" href="{{ asset('css/comment.css') }}">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('css/comment.css') }}">
 {% endblock %}
 
 {% block body %}
-	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-		<div class="container-fluid">
-			<a class="navbar-brand fw-bold" href="{{ path('app_home') }}">💬 Commentaires</a>
-			<div class="collapse navbar-collapse">
-				<ul class="navbar-nav ms-auto">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+	<div class="container-fluid">
+		<a class="navbar-brand fw-bold" href="{{ path('app_home') }}">💬 Commentaires</a>
+		<div class="collapse navbar-collapse">
+			<ul class="navbar-nav ms-auto">
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path('app_home') }}">🏠 Accueil</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path('app_star') }}">⭐ Étoiles</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path('app_star_day') }}">🌟 Étoile du jour</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" href="{{ path('app_contact') }}">ℹ️ Contact</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link active" href="{{ path('app_comment') }}">💬 Commentaires</a>
+				</li>
+				<ul class="navbar-nav">
+					{% if app.user %}
 					<li class="nav-item">
-						<a class="nav-link" href="{{ path('app_home') }}">🏠 Accueil</a>
+						<div class="d-flex align-items-center">
+							<span class="text-primary me-2">
+								<i class="fas fa-user-circle"></i> {{ app.user.email|slice(0, 20) }}{{
+								app.user.email|length > 20 ? '...' : '' }}
+							</span>
+							<a class="nav-link" href="{{ path('app_logout') }}">🚪 Se déconnecter</a>
+						</div>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{{ path('app_star') }}">⭐ Étoiles</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{{ path('app_star_day') }}">🌟 Étoile du jour</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="{{ path('app_contact') }}">ℹ️ Contact</a>
-					</li>
-					<li class="nav-item">
-						<a class="nav-link active" href="{{ path('app_comment') }}">💬 Commentaires</a>
-					</li>
+					{% endif %}
 				</ul>
-			</div>
+			</ul>
 		</div>
-	</nav>
+	</div>
+</nav>
 
-	<main
-		class="container mt-5 pt-5">
+<main class="container mt-5 pt-5">
 
-		{# FORMULAIRE AJOUT COMMENTAIRE #}
-		{% if app.user and form is not null %}
-			<div class="mb-4 p-3 border rounded">
-				{{ form_start(form) }}
+	{# FORMULAIRE AJOUT COMMENTAIRE #}
+	{% if app.user and form is not null %}
+	<div class="mb-4 p-3 border rounded">
+		{{ form_start(form) }}
 
-				<div class="mb-2">
-					{{ form_widget(form.content) }}
-				</div>
+		<div class="mb-2">
+			{{ form_widget(form.content) }}
+		</div>
 
-				<div class="mb-2">
-					{{ form_widget(form.category) }}
-				</div>
+		<div class="mb-2">
+			{{ form_widget(form.category) }}
+		</div>
 
-				<div class="mb-2">
-					{{ form_widget(form.image) }}
-				</div>
+		<div class="mb-2">
+			{{ form_widget(form.image) }}
+		</div>
 
-				<button class="btn btn-primary">Envoyer</button>
+		<button class="btn btn-primary">Envoyer</button>
 
-				{{ form_end(form) }}
-			</div>
-		{% else %}
-			<p class="text-muted">Connecte-toi pour écrire un commentaire.</p>
+		{{ form_end(form) }}
+	</div>
+	{% else %}
+	<p class="text-muted">Connecte-toi pour écrire un commentaire.</p>
+	{% endif %}
+
+
+	{# LISTE DES COMMENTAIRES #}
+	{% for comment in comments %}
+	<div class="comment">
+
+		<div class="fw-bold text-warning">
+			{{ comment.author }}
+			—
+			{{ comment.createdAt|date('d/m/Y H:i') }}
+		</div>
+
+		<div class="text-muted mb-2">
+			{% if comment.category == 'star' %}⭐ Étoile
+			{% elseif comment.category == 'constellation' %}✨ Constellation
+			{% elseif comment.category == 'galaxy' %}🌌 Galaxie
+			{% endif %}
+		</div>
+
+		<div class="mb-2">
+			{{ comment.content }}
+		</div>
+
+		{% if comment.image %}
+		<img src="{{ asset('uploads/comments/' ~ comment.image) }}" class="img-fluid mb-2">
 		{% endif %}
 
+		{% if app.user and comment.user == app.user %}
+		<a href="{{ path('comment_edit', {'id': comment.id}) }}" class="btn btn-sm btn-warning me-2">
+			Modifier
+		</a>
 
-		{# LISTE DES COMMENTAIRES #}
-		{% for comment in comments %}
-			<div class="comment">
+		<form method="post" action="{{ path('comment_delete', {'id': comment.id}) }}" style="display:inline;">
+			<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
+			<button class="btn btn-sm btn-danger" onclick="return confirm('Supprimer ce commentaire ?')">
+				Supprimer
+			</button>
+		</form>
+		{% endif %}
 
-				<div class="fw-bold text-warning">
-					{{ comment.author }}
-					—
-					{{ comment.createdAt|date('d/m/Y H:i') }}
-				</div>
+	</div>
+	{% else %}
+	<p>Aucun commentaire.</p>
+	{% endfor %}
 
-				<div class="text-muted mb-2">
-					{% if comment.category == 'star' %}⭐ Étoile
-						{% elseif comment.category == 'constellation' %}✨ Constellation
-						{% elseif comment.category == 'galaxy' %}🌌 Galaxie
-					{% endif %}
-				</div>
-
-				<div class="mb-2">
-					{{ comment.content }}
-				</div>
-
-				{% if comment.image %}
-					<img src="{{ asset('uploads/comments/' ~ comment.image) }}" class="img-fluid mb-2">
-				{% endif %}
-
-				{% if app.user and comment.user == app.user %}
-					<a href="{{ path('comment_edit', {'id': comment.id}) }}" class="btn btn-sm btn-warning me-2">
-						Modifier
-					</a>
-
-					<form method="post" action="{{ path('comment_delete', {'id': comment.id}) }}" style="display:inline;">
-						<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
-						<button class="btn btn-sm btn-danger" onclick="return confirm('Supprimer ce commentaire ?')">
-							Supprimer
-						</button>
-					</form>
-				{% endif %}
-
-			</div>
-		{% else %}
-			<p>Aucun commentaire.</p>
-		{% endfor %}
-
-	</main>
+</main>
 {% endblock %}

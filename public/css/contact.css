@@ -137,7 +137,7 @@ form::before {
 }
 .form-control:hover {
     background-color: linear-gradient(135deg, #ffd700, #ff9f00);
-    color: white;
+    color: black;
     border-color: rgba(255, 215, 0, 0.8);
     box-shadow: 0 0 14px rgba(255, 215, 0, 0.5);
 }

@@ -36,6 +36,13 @@ body {
     color: #ffd700;
     text-shadow: 0 0 10px rgba(255, 217, 0, 0.925);
 }
+.connexion {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    color: #ff0000;
+}
+
 /* ÉTOILES */
 #home-hero::before,
 #home-hero::after {

@@ -32,6 +32,19 @@
 				<li class="nav-item">
 					<a class="nav-link" href="{{ path('app_login') }}">💬 Commentaires</a>
 				</li>
+				<ul class="navbar-nav">
+					{% if app.user %}
+					<li class="nav-item">
+						<div class="d-flex align-items-center">
+							<span class="text-primary me-2">
+								<i class="fas fa-user-circle"></i> {{ app.user.email|slice(0, 20) }}{{
+								app.user.email|length > 20 ? '...' : '' }}
+							</span>
+							<a class="nav-link" href="{{ path('app_logout') }}">🚪 Se déconnecter</a>
+						</div>
+					</li>
+					{% endif %}
+				</ul>
 			</ul>
 		</div>
 	</div>
@@ -100,7 +113,7 @@
 	<button type="submit" class="btn btn-primary mt-3">
 		<i class="fas fa-paper-plane"></i> Envoyer
 	</button>
-	
+
 	{{ form_end(contactForm) }}
 </section>
 
