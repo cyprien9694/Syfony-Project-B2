@@ -30,14 +30,42 @@ section h1 {
 
 /* CARTE MESSAGE */
 .alert-success {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(0, 255, 170, 0.08);
     backdrop-filter: blur(12px);
     border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #ffffff;
-    box-shadow: 0 0 40px rgba(0, 255, 170, 0.25);
-    padding: 30px;
-    animation: float 6s ease-in-out infinite;
+    border: 1px solid rgba(0, 255, 170, 0.3);
+    color: #e0fff7;
+    box-shadow: 0 0 40px rgba(0, 255, 170, 0.35);
+    padding: 20px 25px;
+    max-width: 50%;
+    margin: 15px auto;
+    text-align: center;
+    animation: floatGlow 6s ease-in-out infinite;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Icône optionnelle */
+.alert-success i {
+    color: #00ffaa;
+    margin-right: 10px;
+    text-shadow: 0 0 8px rgba(0, 255, 170, 0.8);
+}
+
+/* Animation subtile : flottement + glow */
+@keyframes floatGlow {
+    0% {
+        transform: translateY(0px);
+        box-shadow: 0 0 30px rgba(0, 255, 170, 0.3);
+    }
+    50% {
+        transform: translateY(-4px);
+        box-shadow: 0 0 50px rgba(0, 255, 170, 0.6);
+    }
+    100% {
+        transform: translateY(0px);
+        box-shadow: 0 0 30px rgba(0, 255, 170, 0.3);
+    }
 }
 
 /* TEXTE */
