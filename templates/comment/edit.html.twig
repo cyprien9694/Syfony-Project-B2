@@ -1,23 +1,140 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Modifier le commentaire{% endblock %}
+{% block title %}Modifier mon étoile - Espace Stellaire{% endblock %}
+
+{% block stylesheets %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+<link rel="stylesheet" href="{{ asset('css/comment.css') }}">
+{% endblock %}
 
 {% block body %}
-<main>
-    <h1 class="mb-3">Modifier le commentaire</h1>
-
-    <div class="comment-form">
-        {{ form_start(form, { 'attr': {'enctype': 'multipart/form-data'} }) }}
-        <div class="form-group mb-2">
-            {{ form_widget(form.content) }}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="{{ path('app_home') }}">✏️ Modifier mon message</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarMain">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_home') }}">🏠 Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_star') }}">⭐ Étoiles</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_star_day') }}">🌟 Étoile du jour</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_contact') }}">ℹ️ Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_comment') }}">💬 Commentaires</a>
+                </li>
+                <ul class="navbar-nav">
+                    {% if app.user %}
+                    <li class="nav-item">
+                        <div class="d-flex align-items-center">
+                            <span class="text-primary me-2">
+                                <i class="fas fa-user-circle"></i> {{ app.user.email|slice(0, 20) }}{{
+                                app.user.email|length > 20 ? '...' : '' }}
+                            </span>
+                            <a class="nav-link" href="{{ path('app_logout') }}">🚪 Se déconnecter</a>
+                        </div>
+                    </li>
+                    {% endif %}
+                </ul>
+            </ul>
         </div>
-        {% if form.image is defined %}
-            <div class="form-group mb-2">{{ form_widget(form.image) }}</div>
-        {% endif %}
-        <button class="btn" type="submit">Modifier</button>
-        {{ form_end(form) }}
     </div>
+</nav>
 
-    <a href="{{ path('app_comment') }}" class="btn btn-secondary mt-3">Retour à la liste</a>
-</main>
+<section class="container mt-5 pt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="cosmic-edit-card">
+                
+                <div class="cosmic-edit-header">
+                    <h1 class="text-center">
+                        <i class="fas fa-pen-fancy me-3"></i>Modifier mon étoile
+                    </h1>
+                    <p class="text-center cosmic-description">
+                        Tu peux polir ton message comme une étoile qui brille de mille feux.
+                    </p>
+                </div>
+
+                <div class="cosmic-form-container">
+                    {{ form_start(form, {'attr': {'class': 'cosmic-form'}}) }}
+                        
+                        <div class="form-group cosmic-form-group">
+                            {{ form_label(form.content, 'Ton message cosmique', {'label_attr': {'class': 'form-label'}}) }}
+                            {{ form_widget(form.content, {
+                                'attr': {
+                                    'class': 'form-control cosmic-input',
+                                    'placeholder': 'Réécris ton message aux étoiles...',
+                                    'rows': 5
+                                }
+                            }) }}
+                            {{ form_errors(form.content) }}
+                        </div>
+
+                        <div class="form-group cosmic-form-group">
+                            {{ form_label(form.image, 'Image stellaire', {'label_attr': {'class': 'form-label'}}) }}
+                            
+                            {% if comment.image is defined and comment.image %}
+                                <div class="cosmic-current-image mb-3">
+                                    <label class="cosmic-small-label">Image actuelle :</label>
+                                    <div class="current-image-container">
+                                        <img src="{{ asset('uploads/comments/' ~ comment.image) }}" alt="Current image">
+                                        <div class="image-info">
+                                            <i class="fas fa-check-circle text-success"></i>
+                                            <span>{{ comment.image }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            
+                            {{ form_widget(form.image, {
+                                'attr': {
+                                    'class': 'form-control cosmic-input',
+                                    'accept': 'image/*'
+                                }
+                            }) }}
+                            {{ form_errors(form.image) }}
+                            <small class="text-muted cosmic-small">
+                                <i class="fas fa-info-circle me-1"></i>
+                                Laisse vide pour garder l'image actuelle
+                            </small>
+                            <small class="text-muted cosmic-small d-block mt-1">
+                                <i class="fas fa-star me-1"></i>Formats: JPEG, PNG, GIF (max 2M)
+                            </small>
+                        </div>
+
+                        <div class="cosmic-edit-actions d-flex justify-content-between mt-4">
+                            <a href="{{ path('app_comment') }}" class="btn cosmic-btn-cancel">
+                                <i class="fas fa-arrow-left me-2"></i>Annuler
+                            </a>
+                            <button type="submit" class="btn cosmic-btn-save">
+                                <i class="fas fa-save me-2"></i>Sauvegarder
+                                <i class="fas fa-star ms-2"></i>
+                            </button>
+                        </div>
+
+                    {{ form_end(form) }}
+                </div>
+                
+                <div class="cosmic-decoration-stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 {% endblock %}
