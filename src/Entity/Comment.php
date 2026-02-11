@@ -29,22 +29,15 @@ class Comment
     #[ORM\Column(type: "string", length: 255, nullable: true)]
     private ?string $image = null;
 
-    // RELATION AVEC USER (facultatif)
     #[ORM\ManyToOne(targetEntity: User::class)]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
-
-    // NOUVELLE RELATION AVEC STAR
-    #[ORM\ManyToOne(targetEntity: Star::class, inversedBy: 'comments')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?Star $star = null;
 
     public function __construct()
     {
         $this->createdAt = new \DateTime();
     }
 
-    // --- GETTERS / SETTERS ---
     public function getId(): ?int { return $this->id; }
     public function getAuthor(): ?string { return $this->author; }
     public function setAuthor(string $author): self { $this->author = $author; return $this; }
@@ -57,7 +50,6 @@ class Comment
     public function getUser(): ?User { return $this->user; }
     public function setUser(?User $user): self { $this->user = $user; return $this; }
     
-    // NOUVEAU GETTER/SETTER POUR STAR
     public function getStar(): ?Star { return $this->star; }
     public function setStar(?Star $star): self { $this->star = $star; return $this; }
 }
