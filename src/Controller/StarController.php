@@ -13,7 +13,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class StarController extends AbstractController
 {
-#[Route('/star', name: 'app_star')]
+    #[Route('/star', name: 'app_star')]
     public function index(EntityManagerInterface $em, Request $request): Response
     {
         // Récupérer le paramètre de filtre depuis l'URL
@@ -81,7 +81,7 @@ final class StarController extends AbstractController
     #[Route('/star/delete/{id}', name: 'star_delete', methods: ['POST'])]
     public function delete(Request $request, Star $star, EntityManagerInterface $em): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$star->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $star->getId(), $request->request->get('_token'))) {
             $em->remove($star);
             $em->flush();
             $this->addFlash('success', 'Étoile supprimée ! ❌');
@@ -90,4 +90,11 @@ final class StarController extends AbstractController
         return $this->redirectToRoute('app_star');
     }
     
+    #[Route('/star/{id}', name: 'star_show')]
+    public function show(Star $star): Response
+    {
+        return $this->render('star/show.html.twig', [
+            'star' => $star,
+        ]);
+    }
 }

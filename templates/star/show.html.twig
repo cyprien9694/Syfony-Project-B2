@@ -1,0 +1,108 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Détail - {{ star.name }}{% endblock %}
+
+{% block stylesheets %}
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+<link rel="stylesheet" href="{{ asset('css/show.css') }}">
+{% endblock %}
+
+{% block body %}
+
+<!-- NAVBAR -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="{{ path('app_home') }}">⭐ Liste des étoiles</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_home') }}">🏠 Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_star') }}">⭐ Étoiles</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_star_day') }}">🌟 Étoile du jour</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_contact') }}">ℹ️ Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_login') }}">💬 Commentaires</a>
+                </li>
+                <ul class="navbar-nav">
+                    {% if app.user %}
+                    <li class="nav-item">
+                        <div class="d-flex align-items-center">
+                            <span class="text-primary me-2">
+                                <i class="fas fa-user-circle"></i> {{ app.user.email|slice(0, 20) }}{{
+                                app.user.email|length > 20 ? '...' : '' }}
+                            </span>
+                            <a class="nav-link" href="{{ path('app_logout') }}">🚪 Se déconnecter</a>
+                        </div>
+                    </li>
+                    {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<main class="container content mt-5 pt-5">
+
+    <!-- Bouton retour -->
+    <div class="mb-4">
+        <a href="{{ path('app_star') }}" class="btn btn-outline-secondary">
+            <i class="fa-solid fa-arrow-left"></i> Retour à la liste
+        </a>
+    </div>
+
+    <!-- Card principale -->
+    <div class="card shadow-lg p-4">
+
+        <div class="row align-items-center">
+
+            <!-- Image -->
+            <div class="col-md-5 text-center">
+                <img src="{{ star.image }}" alt="{{ star.name }}" 
+                     class="img-fluid rounded shadow">
+            </div>
+
+            <!-- Infos -->
+            <div class="col-md-7">
+                <h2 class="star-title">🌟 {{ star.name }}</h2>
+
+                <p class="mb-2">
+                    <strong class="text-white">Catégorie :</strong>
+                    <span class="badge bg-primary">
+                        {{ star.category.name }}
+                    </span>
+                </p>
+
+                {% if star.distance is defined %}
+                <p>
+                    <strong>Distance :</strong> {{ star.distance }} années-lumière
+                </p>
+                {% endif %}
+
+                {% if star.constellation is defined %}
+                <p>
+                    <strong>Constellation :</strong> {{ star.constellation }}
+                </p>
+                {% endif %}
+
+                {% if star.description %}
+                <hr>
+                <h5 class="text-white">Description</h5>
+                <p class="text-muted">
+                    {{ star.description }}
+                </p>
+                {% endif %}
+
+            </div>
+        </div>
+    </div>
+
+</main>
+
+{% endblock %}

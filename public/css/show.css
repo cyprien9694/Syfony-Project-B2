@@ -1,0 +1,138 @@
+/* ============================
+   PAGE DETAIL ETOILE
+============================ */
+
+body {
+    background: #121212;
+    color: #ffffff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.star-title {
+    font-weight: 800;
+    padding: 1%;
+    background: linear-gradient(90deg, #ffffff, #9fd3ff, #ffd700);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 0 12px rgba(159, 211, 255, 0.6);
+    animation: starGlow 6s ease-in-out infinite;
+}
+@keyframes starGlow {
+    0%, 100% {
+        text-shadow: 0 0 12px rgba(159, 211, 255, 0.6);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(255, 215, 0, 0.8);
+    }
+}
+/* Conteneur principal */
+.content {
+    min-height: 100vh;
+}
+
+/* Bouton retour */
+.content .btn-outline-secondary {
+    border-radius: 12px;
+}
+
+.content .btn-outline-secondary:hover {
+    background-color: #5454D4;
+    border-color: #5454D4;
+    color: #fff;
+}
+
+/* Card principale */
+.card {
+    background: radial-gradient(circle at top, #1b2735 0%, #090a0f 75%);
+    border: none;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(84, 84, 212, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 60px rgba(84, 84, 212, 0.35);
+}
+
+/* Image */
+.card img {
+    max-height: 350px;
+    object-fit: cover;
+    border-radius: 18px;
+}
+
+/* Titre */
+.card h2 {
+    font-size: 2rem;
+    color: #ffffff;
+}
+
+/* Badge catégorie */
+.badge.bg-primary {
+    background: linear-gradient(135deg, #5454D4, #6C63FF);
+    border-radius: 8px;
+    padding: 6px 12px;
+}
+
+/* Description */
+.card hr {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+.card .text-muted {
+    color: rgba(255, 255, 255, 0.65) !important;
+}
+
+/* Boutons */
+.card .btn-primary {
+    border-radius: 12px;
+    background: linear-gradient(135deg, #5454D4, #6C63FF);
+    border: none;
+}
+
+.card .btn-primary:hover {
+    box-shadow: 0 0 20px rgba(84, 84, 212, 0.6);
+}
+
+.card .btn-danger {
+    border-radius: 12px;
+}
+
+.card .btn-danger:hover {
+    box-shadow: 0 0 20px rgba(220, 53, 69, 0.5);
+}
+
+.btn-outline-secondary {
+    background: linear-gradient(135deg, #ffd700, #ff9f00);
+    color: #1b2735;
+    border: none;
+    padding: 10px 10px;
+    border-radius: 12px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 18px rgba(255, 215, 0, 0.6);
+}
+
+.btn-outline-secondary:hover {
+    background: linear-gradient(135deg, #ff9f00, #ffd700);
+    color: #1b2735;
+    box-shadow: 0 0 30px rgba(255, 159, 0, 0.8);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .card {
+        padding: 20px !important;
+    }
+
+    .card h2 {
+        font-size: 1.6rem;
+    }
+
+    .card img {
+        max-height: 250px;
+        margin-bottom: 20px;
+    }
+}

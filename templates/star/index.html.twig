@@ -91,11 +91,14 @@
 	<!-- GRID DES CARDS -->
 	<div class="grid grid-4">
 		{% for star in stars %}
-		<div class="star-card d-flex flex-column justify-content-left col-6 col-md-4 col-lg-3 col-xl-12"
+		<div class="star-card position-relative d-flex flex-column justify-content-left col-6 col-md-4 col-lg-3 col-xl-12"
 			data-category="{{ star.category.name|lower|trim }}">
+
 			<div class="image-center">
 				<img src="{{ star.image }}" alt="{{ star.name }}" class="image">
 			</div>
+			
+			<a href="{{ path('star_show', {'id': star.id}) }}" class="stretched-link"></a>
 
 			<div class="card-body text-center">
 				<h5 class="card-title">{{ star.name }}</h5>
