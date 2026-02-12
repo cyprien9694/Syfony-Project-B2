@@ -1,122 +1,231 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Commentaires
-{% endblock %}
+{% block title %}Commentaires - Espace Stellaire{% endblock %}
 
 {% block stylesheets %}
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
 <link rel="stylesheet" href="{{ asset('css/comment.css') }}">
 {% endblock %}
 
 {% block body %}
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-	<div class="container-fluid">
-		<a class="navbar-brand fw-bold" href="{{ path('app_home') }}">💬 Commentaires</a>
-		<div class="collapse navbar-collapse">
-			<ul class="navbar-nav ms-auto">
-				<li class="nav-item">
-					<a class="nav-link" href="{{ path('app_home') }}">🏠 Accueil</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="{{ path('app_star') }}">⭐ Étoiles</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="{{ path('app_star_day') }}">🌟 Étoile du jour</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="{{ path('app_contact') }}">ℹ️ Contact</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link active" href="{{ path('app_comment') }}">💬 Commentaires</a>
-				</li>
-				<ul class="navbar-nav">
-					{% if app.user %}
-					<li class="nav-item">
-						<div class="d-flex align-items-center">
-							<span class="text-primary me-2">
-								<i class="fas fa-user-circle"></i> {{ app.user.email|slice(0, 20) }}{{
-								app.user.email|length > 20 ? '...' : '' }}
-							</span>
-							<a class="nav-link" href="{{ path('app_logout') }}">🚪 Se déconnecter</a>
-						</div>
-					</li>
-					{% endif %}
-				</ul>
-			</ul>
-		</div>
-	</div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold" href="{{ path('app_home') }}">💬 Espace Commentaires</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarMain">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_home') }}">🏠 Accueil</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_star') }}">⭐ Étoiles</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_star_day') }}">🌟 Étoile du jour</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('app_contact') }}">ℹ️ Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link active" href="{{ path('app_comment') }}">💬 Commentaires</a>
+                </li>
+                <ul class="navbar-nav">
+                    {% if app.user %}
+                    <li class="nav-item">
+                        <div class="d-flex align-items-center">
+                            <span class="text-primary me-2">
+                                <i class="fas fa-user-circle"></i> {{ app.user.email|slice(0, 20) }}{{
+                                app.user.email|length > 20 ? '...' : '' }}
+                            </span>
+                            <a class="nav-link" href="{{ path('app_logout') }}">🚪 Se déconnecter</a>
+                        </div>
+                    </li>
+                    {% endif %}
+                </ul>
+            </ul>
+        </div>
+    </div>
 </nav>
 
-<main class="container mt-5 pt-5">
+{% for label, messages in app.flashes %}
+    {% for message in messages %}
+        <div class="alert alert-{{ label }} alert-dismissible fade show cosmic-alert">
+            <i class="fas fa-{{ label == 'success' ? 'check-circle' : 'exclamation-triangle' }} me-2"></i>
+            {{ message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    {% endfor %}
+{% endfor %}
 
-	{# FORMULAIRE AJOUT COMMENTAIRE #}
-	{% if app.user and form is not null %}
-	<div class="mb-4 p-3 border rounded">
-		{{ form_start(form) }}
+<section class="container mt-5 pt-5">
+    <h1 class="mb-4 text-center">
+        <i class="fas fa-comments me-3"></i>Voyageurs des étoiles
+    </h1>
+    
+    <p class="text-center cosmic-description">
+        Partagez vos pensées, observations et rêves d'étoiles avec la communauté.
+        <br><span class="text-warning">Chaque commentaire est une étoile dans notre galaxie.</span>
+    </p>
 
-		<div class="mb-2">
-			{{ form_widget(form.content) }}
-		</div>
+    {# FORMULAIRE AJOUT COMMENTAIRE - STYLE COSMIC #}
+    {% if app.user and form is not null %}
+        <div class="cosmic-form-container">
+            <h2 class="text-center mb-4">
+                <i class="fas fa-pen-fancy me-2"></i>Laisser une trace stellaire
+            </h2>
+            
+            {{ form_start(form, {'attr': {'class': 'cosmic-form'}}) }}
+                
+                <div class="form-group cosmic-form-group">
+                    {{ form_label(form.content, 'Votre message cosmique', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.content, {
+                        'attr': {
+                            'class': 'form-control cosmic-input',
+                            'placeholder': 'Écrivez votre message aux étoiles...',
+                            'rows': 4
+                        }
+                    }) }}
+                    {{ form_errors(form.content) }}
+                </div>
 
-		<div class="mb-2">
-			{{ form_widget(form.category) }}
-		</div>
+                <div class="form-group cosmic-form-group">
+                    {{ form_label(form.image, 'Image stellaire (optionnelle)', {'label_attr': {'class': 'form-label'}}) }}
+                    {{ form_widget(form.image, {
+                        'attr': {
+                            'class': 'form-control cosmic-input',
+                            'accept': 'image/*'
+                        }
+                    }) }}
+                    {{ form_errors(form.image) }}
+                    <small class="text-muted cosmic-small">
+                        <i class="fas fa-star me-1"></i>Formats: JPEG, PNG, GIF (max 2M)
+                    </small>
+                </div>
 
-		<div class="mb-2">
-			{{ form_widget(form.image) }}
-		</div>
+                <button type="submit" class="btn btn-primary cosmic-btn w-100">
+                    <i class="fas fa-paper-plane me-2"></i>Publier dans l'espace
+                </button>
 
-		<button class="btn btn-primary">Envoyer</button>
+            {{ form_end(form) }}
+        </div>
+    {% else %}
+        <div class="cosmic-login-prompt text-center">
+            <i class="fas fa-user-astronaut fa-3x mb-3"></i>
+            <h3>Connecte-toi pour écrire un commentaire</h3>
+            <p class="mb-4">Les astronautes doivent s'identifier avant de laisser leur trace dans la galaxie.</p>
+            <a href="{{ path('app_login') }}" class="btn btn-primary cosmic-btn">
+                <i class="fas fa-rocket me-2"></i>Se connecter
+            </a>
+        </div>
+    {% endif %}
 
-		{{ form_end(form) }}
-	</div>
-	{% else %}
-	<p class="text-muted">Connecte-toi pour écrire un commentaire.</p>
-	{% endif %}
+    <div class="cosmic-comments-grid">
+        <h2 class="text-center mb-5">
+            <i class="fas fa-star me-2"></i>Constellation des commentaires
+            <span class="badge cosmic-badge ms-3">{{ comments|length }}</span>
+        </h2>
+        
+        <div class="row g-4">
+            {% for comment in comments %}
+                <div class="col-12 col-md-6 col-lg-4">
+                    <div class="cosmic-comment-card">
+                        
+                        {% if comment.image %}
+                            <div class="cosmic-image-container">
+                                <img src="{{ asset('uploads/comments/' ~ comment.image) }}" alt="Comment image" class="cosmic-image">
+                                <div class="cosmic-image-overlay">
+                                    <i class="fas fa-camera"></i>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="cosmic-image-placeholder">
+                                <i class="fas fa-user-circle"></i>
+                            </div>
+                        {% endif %}
 
+                        <div class="cosmic-comment-content">
+                            <div class="cosmic-comment-header">
+                                <div class="cosmic-author">
+                                    <i class="fas fa-user-astronaut"></i>
+                                    <span class="author-name">{{ comment.author }}</span>
+                                </div>
+                                <div class="cosmic-date">
+                                    <i class="fas fa-clock"></i>
+                                    {{ comment.createdAt|date('d/m/Y H:i') }}
+                                </div>
+                            </div>
 
-	{# LISTE DES COMMENTAIRES #}
-	{% for comment in comments %}
-	<div class="comment">
+                            <div class="cosmic-message">
+                                <p>{{ comment.content|nl2br }}</p>
+                            </div>
 
-		<div class="fw-bold text-warning">
-			{{ comment.author }}
-			—
-			{{ comment.createdAt|date('d/m/Y H:i') }}
-		</div>
+                            {% if app.user %}
+    {% if isAdmin %}
+        {# 👑 ADMIN : voit Modifier/Supprimer sur TOUS les commentaires #}
+        <div class="cosmic-actions">
+            <a href="{{ path('comment_edit', {'id': comment.id}) }}" class="btn cosmic-btn-edit">
+                <i class="fa-solid fa-pen"></i>
+                Modifier
+            </a>
+            <form method="post" action="{{ path('comment_delete', {'id': comment.id}) }}" 
+                  onsubmit="return confirm('⚠️ Supprimer ce commentaire ? Cette action est irréversible.');" 
+                  style="display:inline-block">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
+                <button type="submit" class="btn cosmic-btn-delete">
+                    <i class="fa-solid fa-trash"></i>
+                    Supprimer
+                </button>
+            </form>
+        </div>
+    {% elseif comment.user == app.user %}
+        {# 👤 UTILISATEUR NORMAL : voit Modifier/Supprimer seulement sur SES commentaires #}
+        <div class="cosmic-actions">
+            <a href="{{ path('comment_edit', {'id': comment.id}) }}" class="btn cosmic-btn-edit">
+                <i class="fa-solid fa-pen"></i>
+                Modifier
+            </a>
+            <form method="post" action="{{ path('comment_delete', {'id': comment.id}) }}" 
+                  onsubmit="return confirm('⚠️ Supprimer ce commentaire ? Cette action est irréversible.');" 
+                  style="display:inline-block">
+                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
+                <button type="submit" class="btn cosmic-btn-delete">
+                    <i class="fa-solid fa-trash"></i>
+                    Supprimer
+                </button>
+            </form>
+        </div>
+    {% endif %}
+{% endif %}
+                        </div>
+                        
+                        <div class="cosmic-star-decoration">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-12">
+                    <div class="cosmic-empty-state text-center">
+                        <i class="fas fa-galaxy fa-4x mb-4"></i>
+                        <h3>Aucun commentaire dans l'espace</h3>
+                        <p class="mb-4">Sois le premier voyageur à laisser une trace dans notre galaxie !</p>
+                        {% if app.user %}
+                            <p class="text-warning">
+                                <i class="fas fa-arrow-up me-2"></i>
+                                Utilise le formulaire cosmique ci-dessus
+                            </p>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
 
-		<div class="text-muted mb-2">
-			{% if comment.category == 'star' %}⭐ Étoile
-			{% elseif comment.category == 'constellation' %}✨ Constellation
-			{% elseif comment.category == 'galaxy' %}🌌 Galaxie
-			{% endif %}
-		</div>
-
-		<div class="mb-2">
-			{{ comment.content }}
-		</div>
-
-		{% if comment.image %}
-		<img src="{{ asset('uploads/comments/' ~ comment.image) }}" class="img-fluid mb-2">
-		{% endif %}
-
-		{% if app.user and comment.user == app.user %}
-		<a href="{{ path('comment_edit', {'id': comment.id}) }}" class="btn btn-sm btn-warning me-2">
-			Modifier
-		</a>
-
-		<form method="post" action="{{ path('comment_delete', {'id': comment.id}) }}" style="display:inline;">
-			<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ comment.id) }}">
-			<button class="btn btn-sm btn-danger" onclick="return confirm('Supprimer ce commentaire ?')">
-				Supprimer
-			</button>
-		</form>
-		{% endif %}
-
-	</div>
-	{% else %}
-	<p>Aucun commentaire.</p>
-	{% endfor %}
-
-</main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 {% endblock %}

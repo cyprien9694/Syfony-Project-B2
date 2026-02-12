@@ -11,13 +11,13 @@
 	</head>
 	<body>
 		<header>
-			<a href="{{ path('app_login') }}">Commentaires</a>
+			<a href="{{ path('app_comment') }}">Commentaires</a>
 			{% if app.user %}
 				<span>Bonjour,
 					{{ app.user.email }}</span>
 				<a href="{{ path('app_logout') }}">Déconnexion</a>
 			{% else %}
-				<a href="{{ path('app_login') }}">Connexion</a>
+				<a href="{{ path('app_comment') }}">Connexion</a>
 			{% endif %}
 		</header>
 

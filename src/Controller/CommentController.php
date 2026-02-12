@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+
 use App\Entity\Comment;
 use App\Form\CommentType;
 use App\Repository\CommentRepository;
@@ -34,13 +35,16 @@ class CommentController extends AbstractController
             $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-
                 $imageFile = $form->get('image')->getData();
                 if ($imageFile) {
                     $safeFilename = $slugger->slug(
                         pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME)
                     );
-                    $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
+                    $extension = pathinfo($imageFile->getClientOriginalName(), PATHINFO_EXTENSION);
+                    if (empty($extension)) {
+                        $extension = 'jpg';
+                    }
+                    $newFilename = $safeFilename . '-' . uniqid() . '.' . $extension;
 
                     $imageFile->move(
                         $this->getParameter('comments_images_dir'),
@@ -59,7 +63,8 @@ class CommentController extends AbstractController
 
         return $this->render('comment/index.html.twig', [
             'comments' => $comments,
-            'form' => $form ? $form->createView() : null
+            'form' => $form ? $form->createView() : null,
+            'isAdmin' => $this->isGranted('ROLE_ADMIN')
         ]);
     }
 
@@ -71,8 +76,8 @@ class CommentController extends AbstractController
     ): Response {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
-        if ($comment->getUser() !== $this->getUser()) {
-            throw $this->createAccessDeniedException();
+        if (!$this->isGranted('ROLE_ADMIN') && $comment->getUser() !== $this->getUser()) {
+            throw $this->createAccessDeniedException('Vous ne pouvez modifier que vos propres commentaires.');
         }
 
         $form = $this->createForm(CommentType::class, $comment);
@@ -80,11 +85,13 @@ class CommentController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
+            $this->addFlash('success', 'Commentaire modifié avec succès !');
             return $this->redirectToRoute('app_comment');
         }
 
         return $this->render('comment/edit.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
+            'comment' => $comment
         ]);
     }
 
@@ -96,13 +103,14 @@ class CommentController extends AbstractController
     ): Response {
         $this->denyAccessUnlessGranted('ROLE_USER');
 
-        if ($comment->getUser() !== $this->getUser()) {
-            throw $this->createAccessDeniedException();
+        if (!$this->isGranted('ROLE_ADMIN') && $comment->getUser() !== $this->getUser()) {
+            throw $this->createAccessDeniedException('Vous ne pouvez supprimer que vos propres commentaires.');
         }
 
-        if ($this->isCsrfTokenValid('delete'.$comment->getId(), $request->request->get('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $comment->getId(), $request->request->get('_token'))) {
             $em->remove($comment);
             $em->flush();
+            $this->addFlash('success', 'Commentaire supprimé avec succès !');
         }
 
         return $this->redirectToRoute('app_comment');

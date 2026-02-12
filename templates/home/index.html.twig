@@ -54,7 +54,7 @@
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('app_login') }}">💬 Commentaires</a>
+                    <a class="nav-link" href="{{ path('app_comment') }}">💬 Commentaires</a>
                 </li>
                 <ul class="navbar-nav">
                     {% if app.user %}
@@ -92,7 +92,7 @@
             <a href="{{ path('app_star') }}" class="btn btn-primary btn-lg me-3">
                 ⭐ Explorer les étoiles
             </a>
-            <a href="{{ path('app_login') }}" class="btn btn-outline-light btn-lg">
+            <a href="{{ path('app_comment') }}" class="btn btn-outline-light btn-lg">
                 💬 Voir les commentaires
             </a>
         </div>
