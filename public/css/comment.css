@@ -149,6 +149,34 @@ h2 {
     font-size: 1rem;
 }
 
+/* Bouton interne du input file */
+.cosmic-input[type="file"]::file-selector-button {
+    gap: 8px;
+    border: 1px solid rgba(159, 211, 255, 0.4);
+    border-radius: 30px;
+    padding: 8px 18px;
+    background: rgba(255, 255, 255, 0.06);
+    cursor: pointer;
+    font-weight: 700;
+    color: #9fd3ff;
+    transition: all 0.25s ease;
+}
+/* Hover bouton */
+.cosmic-input[type="file"]::file-selector-button:hover {
+    background: rgba(159, 211, 255, 0.15);
+    border-color: #9fd3ff;
+    color: #ffffff;
+    box-shadow: 0 0 12px rgba(159, 211, 255, 0.6),
+                0 0 25px rgba(159, 211, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+/* Effet clic */
+.cosmic-input[type="file"]::file-selector-button:active {
+    transform: translateY(0);
+    box-shadow: 0 0 8px rgba(159, 211, 255, 0.5);
+}
+
 .cosmic-input:hover {
     background: rgba(255, 255, 255, 0.08);
     border-color: rgba(255, 215, 0, 0.5);

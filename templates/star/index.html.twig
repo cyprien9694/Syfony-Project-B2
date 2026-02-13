@@ -96,10 +96,9 @@
 
 			<div class="image-center">
 				<img src="{{ star.image }}" alt="{{ star.name }}" class="image">
+				<a href="{{ path('star_show', {'id': star.id}) }}" class="stretched-link"></a>
 			</div>
 			
-			<a href="{{ path('star_show', {'id': star.id}) }}" class="stretched-link"></a>
-
 			<div class="card-body text-center">
 				<h5 class="card-title">{{ star.name }}</h5>
 
