@@ -40,7 +40,7 @@ Il a pour objectif de mettre en pratique le développement d’une application w
 * `/templates` → Fichiers Twig (vues)
 * `/config` → Configuration Symfony
 * `/migrations` → Fichiers de migration base de données
-* `/public` → Assets publics (CSS, JS, images)
+* `/public` → Assets publics (CSS, JS, images et audio)
 * `/bin` → Fichiers exécutables Symfony
 * `composer.json` → Dépendances du projet
 * `compose.yaml` → Configuration Docker
