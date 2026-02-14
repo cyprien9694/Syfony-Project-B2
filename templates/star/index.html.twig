@@ -89,38 +89,43 @@
 	</form>
 
 	<!-- GRID DES CARDS -->
-	<div class="grid grid-4">
+	<div class="row">
 		{% for star in stars %}
-		<div class="star-card position-relative d-flex flex-column justify-content-left col-6 col-md-4 col-lg-3 col-xl-12"
-			data-category="{{ star.category.name|lower|trim }}">
+		<div class="col-6 col-md-4 col-lg-3 mb-4">
+			<div class="star-card position-relative d-flex flex-column h-100"
+				data-category="{{ star.category.name|lower|trim }}">
 
-			<div class="image-center">
-				<img src="{{ star.image }}" alt="{{ star.name }}" class="image">
+				<div class="image-center">
+					<img src="{{ star.image }}" alt="{{ star.name }}" class="image">
+				</div>
+
 				<a href="{{ path('star_show', {'id': star.id}) }}" class="stretched-link"></a>
-			</div>
-			
-			<div class="card-body text-center">
-				<h5 class="card-title">{{ star.name }}</h5>
 
-				<div class="d-flex justify-center gap-2 mt-2">
-					<a href="{{ path('star_edit', {'id': star.id}) }}" class="btn btn-filter">
-						<i class="fa-solid fa-pen"></i>
-						Modifier
-					</a>
+				<div class="card-body text-center">
+					<h5 class="card-title">{{ star.name }}</h5>
 
-					<form method="post" action="{{ path('star_delete', {'id': star.id}) }}"
-						onsubmit="return confirm('Supprimer cette étoile ?');" style="display:inline-block">
-						<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ star.id) }}">
-						<button type="submit" class="btn btn-filter">
-							<i class="fa-solid fa-trash"></i>
-							Supprimer
-						</button>
-					</form>
+					<div class="d-flex justify-center gap-2 mt-2">
+						<a href="{{ path('star_edit', {'id': star.id}) }}" class="btn btn-filter">
+							<i class="fa-solid fa-pen"></i>
+							Modifier
+						</a>
+
+						<form method="post" action="{{ path('star_delete', {'id': star.id}) }}"
+							onsubmit="return confirm('Supprimer cette étoile ?');" style="display:inline-block">
+							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ star.id) }}">
+							<button type="submit" class="btn btn-filter">
+								<i class="fa-solid fa-trash"></i>
+								Supprimer
+							</button>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>
 		{% else %}
-		<p class="text-center text-danger">Aucune étoile trouvée 🌌</p>
+		<div class="col-12">
+			<p class="text-center text-danger">Aucune étoile trouvée 🌌</p>
+		</div>
 		{% endfor %}
 	</div>
 

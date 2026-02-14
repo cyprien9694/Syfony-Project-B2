@@ -87,21 +87,6 @@ body {
     color: #ffffff;
 }
 
-/* =========================
-   🧩 GRID
-========================= */
-.grid {
-    display: grid;
-    gap: 25px;
-}
-
-.grid-3 {
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-}
-
-.grid-4 {
-    grid-template-columns: repeat(4, 1fr);
-}
 
 /* =========================
    ⭐ CARDS
@@ -205,15 +190,12 @@ body {
 ========================= */
 a {
     display: inline-block;
-    margin-top: 15px;
     color: #9fd3ff;
-    text-decoration: none;
     transition: color 0.2s ease;
 }
 
 a:hover {
     color: #ffffff;
-    text-decoration: none;
 }
 .form-select{
     background-color: rgba(255, 255, 255, 0.06);
@@ -258,20 +240,60 @@ a:hover {
     color: #ffffff;
 }
 /* =========================
+
+========================= */
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
+
+.row > [class*="col-"] {
+    padding-right: 15px;
+    padding-left: 15px;
+}
+
+.col-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+}
+/* =========================
    📱 RESPONSIVE
 ========================= */
-@media (max-width: 768px) {
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -15px;
+    margin-left: -15px;
+}
 
-    .grid-3,
-    .grid-4 {
-        grid-template-columns: 1fr;
-    }
+.row > [class*="col-"] {
+    padding-right: 15px;
+    padding-left: 15px;
+}
 
-    .card-title {
-        font-size: 1rem;
-    }
+.col-6 {
+    flex: 0 0 50%;
+    max-width: 50%;
+}
 
-    .star-card img {
-        height: 150px;
+@media (min-width: 768px) {
+    .col-md-4 {
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
     }
+}
+
+@media (min-width: 992px) {
+    .col-lg-3 {
+        flex: 0 0 25%;
+        max-width: 25%;
+    }
+}
+
+.star-card {
+    height: 100%;
+    width: 100%;
 }
