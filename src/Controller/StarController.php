@@ -38,6 +38,7 @@ final class StarController extends AbstractController
             'stars' => $stars,
             'categories' => $categories,
             'selectedCategory' => $categoryId ?: 'all',
+            'isAdmin' => $this->isGranted('ROLE_ADMIN')
         ]);
     }
     #[Route('/star/new', name: 'star_new')]
