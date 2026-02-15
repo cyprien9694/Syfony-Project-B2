@@ -20,7 +20,10 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
 	<div class="container-fluid">
 		<a class="navbar-brand fw-bold" href="{{ path('app_home') }}">⭐ Liste des étoiles</a>
-		<div class="collapse navbar-collapse">
+		<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarMain">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarMain">
 			<ul class="navbar-nav ms-auto">
 				<li class="nav-item">
 					<a class="nav-link" href="{{ path('app_home') }}">🏠 Accueil</a>
@@ -70,8 +73,8 @@
 		<h2 class="page-title">🌟 Nos étoiles</h2>
 		{% if isAdmin %}
 		<a href="{{ path('star_new') }}" class="btn btn-primary ">
-			<i class="fa-solid fa-plus"></i>  
-			 <span class="d-none d-md-inline ms-2">Ajouter une étoile</span>
+			<i class="fa-solid fa-plus"></i>
+			<span class="d-none d-md-inline ms-2">Ajouter une étoile</span>
 		</a>
 		{% endif %}
 	</div>
@@ -103,34 +106,34 @@
 					<img src="{{ star.image }}" alt="{{ star.name }}" class="image">
 					<a href="{{ path('star_show', {'id': star.id}) }}" class="stretched-link"></a>
 				</div>
-				
+
 
 				<div class="card-body text-center">
 					<h5 class="card-title">{{ star.name }}</h5>
 
-				<div class="d-flex justify-center gap-2 mt-2">
-    {% if app.user %}
-        {% if isAdmin %}
-            {# 👑 ADMIN: see all buttons #}
-            <a href="{{ path('star_edit', {'id': star.id}) }}" 
-               class="btn btn-filter d-flex align-items-center justify-content-center">
-                <i class="fa-solid fa-pen"></i>
-                <span class="d-none d-md-inline ms-2">Modifier</span>
-            </a>
+					<div class="d-flex justify-center gap-2 mt-2">
+						{% if app.user %}
+						{% if isAdmin %}
+						{# 👑 ADMIN: see all buttons #}
+						<a href="{{ path('star_edit', {'id': star.id}) }}"
+							class="btn btn-filter d-flex align-items-center justify-content-center">
+							<i class="fa-solid fa-pen"></i>
+							<span class="d-none d-md-inline ms-2">Modifier</span>
+						</a>
 
-            <form method="post" action="{{ path('star_delete', {'id': star.id}) }}" 
-                  onsubmit="return confirm('⚠️ Supprimer cette étoile ?');" 
-                  style="display:inline-block">
-                <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ star.id) }}">
-                <button type="submit" class="btn btn-filter d-flex align-items-center justify-content-center">
-                    <i class="fa-solid fa-trash"></i>
-                    <span class="d-none d-md-inline ms-2">Supprimer</span>
-                </button>
-            </form>
+						<form method="post" action="{{ path('star_delete', {'id': star.id}) }}"
+							onsubmit="return confirm('⚠️ Supprimer cette étoile ?');" style="display:inline-block">
+							<input type="hidden" name="_token" value="{{ csrf_token('delete' ~ star.id) }}">
+							<button type="submit"
+								class="btn btn-filter d-flex align-items-center justify-content-center">
+								<i class="fa-solid fa-trash"></i>
+								<span class="d-none d-md-inline ms-2">Supprimer</span>
+							</button>
+						</form>
 
-    {% endif %}
-    {% endif %}
-</div>
+						{% endif %}
+						{% endif %}
+					</div>
 
 				</div>
 			</div>
