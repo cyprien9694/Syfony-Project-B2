@@ -10,4 +10,3 @@ class StarTest extends TestCase
     {
         $this->assertTrue(true);
     }
-}
