@@ -116,7 +116,3 @@ Projet réalisé par **Cyprien**
 ## 📄 Licence
 
 Projet pédagogique – Usage académique.
-
----
-
-✨ Projet illustrant la montée en compétence vers le développement web professionnel avec Symfony.
